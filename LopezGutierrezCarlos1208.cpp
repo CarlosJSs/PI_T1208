@@ -134,6 +134,8 @@ struct Device{
 //**************************************** Prototypes **********************************
 int showMainMenu();
 int getMenuOption(int &Option, int firstOption, int lastOption);
+int performMainOption(int mainOption);
+int showDeviceMenu();
 
 
 int main(void){
@@ -147,7 +149,7 @@ int main(void){
 
     showMainMenu();
     getMenuOption(menuSelectedOption,1,8);
-
+    performMainOption(menuSelectedOption);
 
     // ********************************** Footer ****************************************
     cout << "\n\n\n\nPara salir, presiona la tecla 'Enter'";
@@ -156,6 +158,53 @@ int main(void){
 
 //***************************************** Functions ***********************************
 
+int addDevice(){
+}
+int showDeviceMenu(){
+    cout<<"\n\t\t¿Con qué tipo de dispositivo desea trabajar?:\n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. iPhone\n";
+    cout<<"  2-. iPad\n";
+    cout<<"  3-. Mac\n";
+    cout<<"  4-. AirPods\n";
+    cout<<"  5-. Watch\n\n";
+    return 0;
+}
+int performMainOption(int mainOption){
+    switch(mainOption){
+        case 1:
+            int selectedDevice;
+            showDeviceMenu();
+            getMenuOption(selectedDevice,1,5);
+
+            break;
+        case 2:
+            cout<<"la 1";
+            break;
+        case 3:
+            cout<<"la 1";
+            break;
+        case 4:
+            cout<<"la 1";
+            break;
+        case 5:
+            cout<<"la 1";
+            break;
+        case 6:
+            cout<<"la 1";
+            break;
+        case 7:
+            cout<<"la 1";
+            break;
+        case 8:
+            cout<<"la 1";
+            break;
+        default:
+            cout<<"\nError, opción no encontrada.\n";
+            break;
+    }
+    return 0;
+}
 int getMenuOption(int &Option, int firstOption, int lastOption){
     do{
         cout<<"\tDigite una opción: ";
