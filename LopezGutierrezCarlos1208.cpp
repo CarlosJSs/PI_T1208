@@ -1,5 +1,5 @@
 /*
-Programa: Base de datos de un hombre pobre
+Programa: Base de datos de un hombre (o mujer) pobre
 Por Carlos Eduardo López Gutiérrez
 */
 
@@ -49,6 +49,8 @@ struct Mac_SpecsByModel{
     float width;
     float depth;
     float weight;
+    string CPU;
+    string GPU;
     string display;
     string chip;
     string energy_batery;
@@ -104,9 +106,7 @@ struct Mac{
     int storage;
     string model;
     string color;
-    string CPU;
-    string GPU;
-    string RAM;
+    int RAM;
     int id_Device;
     Mac_SpecsByModel specsByModel;
 };
@@ -148,6 +148,9 @@ int showAllDevices(Device myDevice, int *amountDevices);
 
 int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice);
 int setiPadData(int selectedModel, int amountDevices, Device &myDevice);
+int setMacData(int selectedModel, int amountDevices, Device &myDevice);
+int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice);
+int setWatchData(int selectedModel, int amountDevices, Device &myDevice);
 
 int getMenuOption(int &Option, int firstOption, int lastOption);
 
@@ -209,7 +212,6 @@ int showAllDevices(Device myDevice, int *amountDevices){
     }
     return 0;
 }
-
 int showOneDevice(Device myDevice, int numberDevice, int typeDevice){
     switch(typeDevice){
     case 0:
@@ -478,56 +480,112 @@ int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
 }
 int setMacData(int selectedModel, int amountDevices, Device &myDevice){
     cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+    cin>>myDevice.AppleMac[amountDevices].id_Device; cin.ignore();
     cout<<"\t\tColor: ";
-    getline(cin,myDevice.AppleiPad[amountDevices].color);
+    getline(cin,myDevice.AppleMac[amountDevices].color);
     cout<<"\t\tAlmacenamiento [GB]: ";
-    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
+    cin>>myDevice.AppleMac[amountDevices].storage; cin.ignore();
+    cout<<"\t\tMemoria RAM [GB]: ";
+    cin>>myDevice.AppleMac[amountDevices].RAM; cin.ignore();
     cout<<"\t\tPrecio (USD): ";
-    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
+    cin>>myDevice.AppleMac[amountDevices].price; cin.ignore();
 
     switch(selectedModel){
         case 1:
-            myDevice.AppleiPad[amountDevices].model="iPad Pro";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
+            myDevice.AppleiPad[amountDevices].model="MacBook Pro";
+            myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 720p";
+            myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M2 de Apple";
+            myDevice.AppleMac[amountDevices].specsByModel.CPU="8 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.display="Pantalla Retina 13.3\"";
+            myDevice.AppleMac[amountDevices].specsByModel.energy_batery="20 horas de bateria";
+            myDevice.AppleMac[amountDevices].specsByModel.GPU="10 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.keyboard_trackpad="Magic Keyboard retroiluminado | Touch Bar";
+            myDevice.AppleMac[amountDevices].specsByModel.ports="Dos puertos Thunderbolt/USB 4";
+            myDevice.AppleMac[amountDevices].specsByModel.secureAuth="Touch Bar y Touch ID";
+            myDevice.AppleMac[amountDevices].specsByModel.depth=21.24;
+            myDevice.AppleMac[amountDevices].specsByModel.height=1.56;
+            myDevice.AppleMac[amountDevices].specsByModel.weight=1.4;
+            myDevice.AppleMac[amountDevices].specsByModel.width=30.41;
             break;
         case 2:
-            myDevice.AppleiPad[amountDevices].model="iPad Air";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
+            myDevice.AppleiPad[amountDevices].model="MacBook Air";
+            myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 1080p";
+            myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M2 de Apple";
+            myDevice.AppleMac[amountDevices].specsByModel.CPU="8 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.display="Pantalla Liquid Retina 13.6\"";
+            myDevice.AppleMac[amountDevices].specsByModel.energy_batery="18 horas de bateria";
+            myDevice.AppleMac[amountDevices].specsByModel.GPU="10 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.keyboard_trackpad="Magic Keyboard retroiluminado";
+            myDevice.AppleMac[amountDevices].specsByModel.ports="Dos puertos Thunderbolt/USB 4";
+            myDevice.AppleMac[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleMac[amountDevices].specsByModel.depth=21.5;
+            myDevice.AppleMac[amountDevices].specsByModel.height=1.13;
+            myDevice.AppleMac[amountDevices].specsByModel.weight=1.24;
+            myDevice.AppleMac[amountDevices].specsByModel.width=30.41;
             break;
         case 3:
-            myDevice.AppleiPad[amountDevices].model="iPad mini";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
+            myDevice.AppleiPad[amountDevices].model="iMac";
+            myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 1080p";
+            myDevice.AppleMac[amountDevices].specsByModel.chip="Intel Core i9";
+            myDevice.AppleMac[amountDevices].specsByModel.CPU="10 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.display="Pantalla Retina 5K 27\"";
+            myDevice.AppleMac[amountDevices].specsByModel.energy_batery="No Aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.GPU="AMD Radeon Pro 5700 XT";
+            myDevice.AppleMac[amountDevices].specsByModel.keyboard_trackpad="Magic Mouse o Magic Trackpad";
+            myDevice.AppleMac[amountDevices].specsByModel.ports="Dos puertos Thunderbolt 3 (USB-C) | Cuatro puertos USB-A";
+            myDevice.AppleMac[amountDevices].specsByModel.secureAuth="Magic Keyboard";
+            myDevice.AppleMac[amountDevices].specsByModel.depth=20.3;
+            myDevice.AppleMac[amountDevices].specsByModel.height=51.6;
+            myDevice.AppleMac[amountDevices].specsByModel.weight=8.92;
+            myDevice.AppleMac[amountDevices].specsByModel.width=65;
+            break;
+        case 4:
+            myDevice.AppleiPad[amountDevices].model="iMac Pro";
+            myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 1080p";
+            myDevice.AppleMac[amountDevices].specsByModel.chip="Intel Xeon W";
+            myDevice.AppleMac[amountDevices].specsByModel.CPU="18 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.display="Pantalla Retina 5k de 27 pulgadas (diagonal) retroiluminada por LED";
+            myDevice.AppleMac[amountDevices].specsByModel.energy_batery="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.GPU="AMD Radeon Pro Vega 64X";
+            myDevice.AppleMac[amountDevices].specsByModel.keyboard_trackpad="Magic Keyboard con teclado numérico";
+            myDevice.AppleMac[amountDevices].specsByModel.ports="Cuatro puertos Thunderbolt 3 (USB-C) | Cuatro puertos USB-A";
+            myDevice.AppleMac[amountDevices].specsByModel.secureAuth="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.depth=20.3;
+            myDevice.AppleMac[amountDevices].specsByModel.height=51.6;
+            myDevice.AppleMac[amountDevices].specsByModel.weight=9.7;
+            myDevice.AppleMac[amountDevices].specsByModel.width=65;
+            break;
+        case 5:
+            myDevice.AppleiPad[amountDevices].model="Mac mini";
+            myDevice.AppleMac[amountDevices].specsByModel.camera="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M1 de Apple";
+            myDevice.AppleMac[amountDevices].specsByModel.CPU="8 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.display="Admite un monitor hasta 6K y un monitor hasta 4K";
+            myDevice.AppleMac[amountDevices].specsByModel.energy_batery="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.GPU="8 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.keyboard_trackpad="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.ports="Dos puertos Thunderbolt/USB 4";
+            myDevice.AppleMac[amountDevices].specsByModel.secureAuth="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.depth=19.7;
+            myDevice.AppleMac[amountDevices].specsByModel.height=3.6;
+            myDevice.AppleMac[amountDevices].specsByModel.weight=1.2;
+            myDevice.AppleMac[amountDevices].specsByModel.width=19.7;
+            break;
+        case 6:
+            myDevice.AppleiPad[amountDevices].model="Mac studio";
+            myDevice.AppleMac[amountDevices].specsByModel.camera="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M1 Max de Apple o Chip M1 Ultra de Apple";
+            myDevice.AppleMac[amountDevices].specsByModel.CPU="20 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.display="Admite hasta cuatro monitores Pro Display XDR y un monitor 4K";
+            myDevice.AppleMac[amountDevices].specsByModel.energy_batery="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.GPU="64 núcleos";
+            myDevice.AppleMac[amountDevices].specsByModel.keyboard_trackpad="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.ports="Cuatro puertos Thunderbolt 4 (M1 Max); seis puertos Thunderbolt 4 (M1 Ultra)";
+            myDevice.AppleMac[amountDevices].specsByModel.secureAuth="No aplica";
+            myDevice.AppleMac[amountDevices].specsByModel.depth=19.7;
+            myDevice.AppleMac[amountDevices].specsByModel.height=9.5;
+            myDevice.AppleMac[amountDevices].specsByModel.weight=3.1;
+            myDevice.AppleMac[amountDevices].specsByModel.width=19.7;
             break;
         default:
             cout<<"\nError, modelo de iPad no encontrado\n";
@@ -686,8 +744,7 @@ int showMenuMac(){
     cout<<"  3-. iMac\n";
     cout<<"  4-. iMac Pro\n";
     cout<<"  5-. iMac mini\n";
-    cout<<"  6-. Mac studio\n";
-    cout<<"  7-. Mac Pro\n";
+    cout<<"  6-. Mac studio\n\n";
     return 0;
 }
 int showMenuAirPods(){
@@ -749,17 +806,6 @@ int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
     return 0;
 }
 
-int showDeviceMenu(){
-    cout<<"\n\t\t¿Con qué tipo de dispositivo desea trabajar?:\n";
-    cout<<"\t-------------------------------------------------------\n";
-    cout<<"  1-. iPhone\n";
-    cout<<"  2-. iPad\n";
-    cout<<"  3-. Mac\n";
-    cout<<"  4-. AirPods\n";
-    cout<<"  5-. Watch\n\n";
-    return 0;
-}
-
 int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
     switch(mainOption){
         case 1:
@@ -807,6 +853,16 @@ int getMenuOption(int &Option, int firstOption, int lastOption){
     return 0;
 }
 
+int showDeviceMenu(){
+    cout<<"\n\t\t¿Con qué tipo de dispositivo desea trabajar?:\n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. iPhone\n";
+    cout<<"  2-. iPad\n";
+    cout<<"  3-. Mac\n";
+    cout<<"  4-. AirPods\n";
+    cout<<"  5-. Watch\n\n";
+    return 0;
+}
 int showMainMenu(){
     cout<<"\t\t\tMenú de opciones:\n";
     cout<<"\t-------------------------------------------------------\n";
