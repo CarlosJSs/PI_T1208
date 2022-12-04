@@ -7,11 +7,6 @@ Por Carlos Eduardo López Gutiérrez
 #include <clocale>
 
 #define DeviceMAX 100
-#define iPhoneMAX 10
-#define iPadMAX 3
-#define MacMAX 7
-#define AirPodsMAX 4
-#define WatchMAX 3
 
 using namespace std;
 
@@ -91,14 +86,16 @@ struct iPhone_SpecsByModel{
 
 struct Watch{
     float price;
-    string model[WatchMAX]={"Apple Watch Ultra","Apple Watch Series","Apple Watch SE"};
+    string model;
+    //"Apple Watch Ultra","Apple Watch Series","Apple Watch SE";
     string color;
     int id_Device;
     Watch_SpecsByModel specsByModel;
 };
 struct AirPods{
     float price;
-    string model[AirPodsMAX]={"AirPods (2da Generación)","AirPods (3ra Generación)","AirPods Pro","AirPods Max"};
+    string model;
+    //"AirPods (2da Generación)","AirPods (3ra Generación)","AirPods Pro","AirPods Max";
     string color;
     int id_Device;
     AirPods_SpecsByModel specsByModel;
@@ -107,7 +104,8 @@ struct AirPods{
 struct Mac{
     float price;
     int storage;
-    string model[MacMAX]={"MacBook Pro","MacBook Air","iMac","iMac Pro","Mac mini","Mac studio","Mac Pro"};
+    string model;
+    //"MacBook Pro","MacBook Air","iMac","iMac Pro","Mac mini","Mac studio","Mac Pro";
     string color;
     string CPU;
     string GPU;
@@ -118,7 +116,8 @@ struct Mac{
 struct iPad{
     float price;
     int storage;
-    string model[iPadMAX]={"iPad Pro","iPad Air","iPad mini"};
+    string model;
+    //"iPad Pro","iPad Air","iPad mini";
     string color;
     int id_Device;
     iPad_SpecsByModel specsByModel;
@@ -126,8 +125,7 @@ struct iPad{
 struct iPhone{
     float price;
     int storage;
-    string model[iPhoneMAX]={"iPhone 14 Pro Max","iPhone 14","iPhone 13 Pro Max","iPhone 13","iPhone 12 Pro Max",
-                            "iPhone 12","iPhone 11 Pro Max","iPhone 11","iPhone Xs Max","iPhone X"};
+    string model;
     string color;
     int id_Device;
     iPhone_SpecsByModel specsByModel;
@@ -144,11 +142,13 @@ struct Device{
 //**************************************** Prototypes **********************************
 int showMainMenu();
 int getMenuOption(int &Option, int firstOption, int lastOption);
-int performMainOption(int mainOption, Device &myDevice, int amountDevices);
+int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
 int showDeviceMenu();
-int addDeviceOption(int selectedDevice, Device &myDevice, int amountDevices);
+int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 int showMenuiPhone();
 int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice);
+int showOneDevice(Device myDevice, int numberDevice, int typeDevice);
+int showAllDevices(Device myDevice, int *amountDevices);
 
 int main(void){
     system("COLOR F1");
@@ -158,11 +158,16 @@ int main(void){
     cout<<"\n\t\tBase de Datos de un Hombre Pobre\n\n";
 
     Device myDevice;
-    int menuSelectedOption, amountDevices=0;
+    int menuSelectedOption;
+    int amountDevices[5]={};
 
-    showMainMenu();
-    getMenuOption(menuSelectedOption,1,8);
-    performMainOption(menuSelectedOption,myDevice,amountDevices);
+    do{
+        showMainMenu();
+        getMenuOption(menuSelectedOption,1,9);
+        performMainOption(menuSelectedOption,myDevice,amountDevices);
+    }while(menuSelectedOption!=9);
+
+    cout<<"\n"<<amountDevices[0];
 
     // ********************************** Footer ****************************************
     cout << "\n\n\n\nPara salir, presiona la tecla 'Enter'";
@@ -171,8 +176,66 @@ int main(void){
 
 //***************************************** Functions ***********************************
 
+int showAllDevices(Device myDevice, int *amountDevices){
+    for(int k=0;k<5;k++){
+        switch(k){
+        case 0:
+            cout<<"\n\t\tRegistros de iPhone: \n";
+            break;
+        case 1:
+            cout<<"\n\t\tRegistros de iPad: \n";
+            break;
+        case 2:
+            cout<<"\n\t\tRegistros de Mac: \n";
+            break;
+        case 3:
+            cout<<"\n\t\tRegistros de AirPods: \n";
+            break;
+        case 4:
+            cout<<"\n\t\tRegistros de Watch: \n";
+            break;
+        }
+        cout<<"\t-------------------------------------------------------\n";
+        for(int l=0;l<amountDevices[k];l++){
+            showOneDevice(myDevice,l,k);
+        }
+    }
+    return 0;
+}
+int showOneDevice(Device myDevice, int numberDevice, int typeDevice){
+    switch(typeDevice){
+    case 0:
+        cout<<"\t\tModelo: "<<myDevice.AppleiPhone[numberDevice].model<<endl;
+        cout<<"\t\tColor: "<<myDevice.AppleiPhone[numberDevice].color<<endl;
+        cout<<"\t\tID: "<<myDevice.AppleiPhone[numberDevice].id_Device<<endl;
+        cout<<"\t\tAlmacenamiento: "<<myDevice.AppleiPhone[numberDevice].storage<<endl;
+        cout<<"\t\tPrecio: "<<myDevice.AppleiPhone[numberDevice].price<<endl;
+        cout<<"\t\tCamara: "<<myDevice.AppleiPhone[numberDevice].specsByModel.camera<<endl;
+        cout<<"\t\tChip: "<<myDevice.AppleiPhone[numberDevice].specsByModel.chip<<endl;
+        cout<<"\t\tConector: "<<myDevice.AppleiPhone[numberDevice].specsByModel.conector<<endl;
+        cout<<"\t\tPantalla: "<<myDevice.AppleiPhone[numberDevice].specsByModel.display<<endl;
+        cout<<"\t\tBateria: "<<myDevice.AppleiPhone[numberDevice].specsByModel.energy_batery<<endl;
+        cout<<"\t\tResistencia: "<<myDevice.AppleiPhone[numberDevice].specsByModel.resistance<<endl;
+        cout<<"\t\tSeguridad: "<<myDevice.AppleiPhone[numberDevice].specsByModel.secureAuth<<endl;
+        cout<<"\t\tGrosor: "<<myDevice.AppleiPhone[numberDevice].specsByModel.depth<<endl;
+        cout<<"\t\tAlto: "<<myDevice.AppleiPhone[numberDevice].specsByModel.height<<endl;
+        cout<<"\t\tPeso: "<<myDevice.AppleiPhone[numberDevice].specsByModel.weight<<endl;
+        cout<<"\t\tAncho: "<<myDevice.AppleiPhone[numberDevice].specsByModel.width<<endl<<endl;
+        break;
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    default:
+        break;
+    }
+    return 0;
+}
 int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
-    myDevice.AppleiPhone[amountDevices].model[selectedModel-1];
     cout<<"\nID producto (4 números): ";
     cin>>myDevice.AppleiPhone[amountDevices].id_Device; cin.ignore();
     cout<<"Color: ";
@@ -184,6 +247,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
 
     switch(selectedModel){
         case 1:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 14 Pro Max";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de cámaras Pro Gran angular de 48 MP | Ultra gran angular | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="A16 Bonic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -197,6 +261,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=77.6;
             break;
         case 2:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 14";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema avanzado de dos cámaras Gran angular de 12 MP | Ultra gran angular";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="A15 Bonic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -210,6 +275,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=71.5;
             break;
         case 3:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 13 Pro Max";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de cámaras Pro Gran angular de 12 MP | Ultra gran angular | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="A15 Bonic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -223,6 +289,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=78.1;
             break;
         case 4:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 13";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Ultra gran angular";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A15 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -236,6 +303,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=71.5;
             break;
         case 5:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 12 Pro Max";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de cámaras Pro Gran angular de 12 MP | Ultra gran angular | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A14 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -249,6 +317,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=78.1;
             break;
         case 6:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 12";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Ultra gran angular";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A14 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -262,6 +331,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=71.5;
             break;
         case 7:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 11 Pro Max";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de tres cámaras Gran angular de 12 MP | Ultra gran angular | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A13 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -275,6 +345,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=77.8;
             break;
         case 8:
+            myDevice.AppleiPhone[amountDevices].model="iPhone 11";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Ultra gran angular";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A13 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -288,6 +359,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=75.7;
             break;
         case 9:
+            myDevice.AppleiPhone[amountDevices].model="iPhone Xs Max";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A12 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -301,6 +373,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=77.4;
             break;
         case 10:
+            myDevice.AppleiPhone[amountDevices].model="iPhone X";
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="A11 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
@@ -331,13 +404,14 @@ int showMenuiPhone(){
     cout<<"  10-. iPhone X\n\n";
     return 0;
 }
-int addDeviceOption(int selectedDevice, Device &myDevice, int amountDevices){
+int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
     int selectedModel;
     switch(selectedDevice){
         case 1:
             showMenuiPhone();
             getMenuOption(selectedModel,1,10);
             setiPhoneData(selectedModel,amountDevices,myDevice);
+            amountDevices++;
             break;
         case 2:
             break;
@@ -362,16 +436,16 @@ int showDeviceMenu(){
     cout<<"  5-. Watch\n\n";
     return 0;
 }
-int performMainOption(int mainOption, Device &myDevice, int amountDevices){
+int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
     switch(mainOption){
-        case 1:
+        case 1: //Agregar un dispositivo
             int selectedDevice;
             showDeviceMenu();
             getMenuOption(selectedDevice,1,5);
-            addDeviceOption(selectedDevice,myDevice,amountDevices);
+            addDeviceOption(selectedDevice,myDevice,amountDevices[selectedDevice-1]);
             break;
-        case 2:
-            cout<<"la 1";
+        case 2: //Mostrar todos los registros
+            showAllDevices(myDevice,amountDevices);
             break;
         case 3:
             cout<<"la 1";
@@ -389,6 +463,9 @@ int performMainOption(int mainOption, Device &myDevice, int amountDevices){
             cout<<"la 1";
             break;
         case 8:
+            cout<<"la 1";
+            break;
+        case 9:
             cout<<"la 1";
             break;
         default:
@@ -414,6 +491,7 @@ int showMainMenu(){
     cout<<"  5-. Obtener registros de un archivo de texto\n";
     cout<<"  6-. Buscar un registro\n";
     cout<<"  7-. Modificar un registro especifico\n";
-    cout<<"  8-. Eliminar un registro especifico\n\n";
+    cout<<"  8-. Eliminar un registro especifico\n";
+    cout<<"  9-. Salir\n\n";
     return 0;
 }
