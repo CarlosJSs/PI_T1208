@@ -117,7 +117,6 @@ struct iPad{
     float price;
     int storage;
     string model;
-    //"iPad Pro","iPad Air","iPad mini";
     string color;
     int id_Device;
     iPad_SpecsByModel specsByModel;
@@ -141,14 +140,20 @@ struct Device{
 
 //**************************************** Prototypes **********************************
 int showMainMenu();
-int getMenuOption(int &Option, int firstOption, int lastOption);
-int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
 int showDeviceMenu();
-int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 int showMenuiPhone();
-int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice);
+int showMenuiPad();
 int showOneDevice(Device myDevice, int numberDevice, int typeDevice);
 int showAllDevices(Device myDevice, int *amountDevices);
+
+int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice);
+int setiPadData(int selectedModel, int amountDevices, Device &myDevice);
+
+int getMenuOption(int &Option, int firstOption, int lastOption);
+
+int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
+
+int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 
 int main(void){
     system("COLOR F1");
@@ -167,7 +172,9 @@ int main(void){
         performMainOption(menuSelectedOption,myDevice,amountDevices);
     }while(menuSelectedOption!=9);
 
-    cout<<"\n"<<amountDevices[0];
+    for(int k=0;k<5;k++){
+        cout<<amountDevices[k]<<"\n";
+    }
 
     // ********************************** Footer ****************************************
     cout << "\n\n\n\nPara salir, presiona la tecla 'Enter'";
@@ -202,27 +209,44 @@ int showAllDevices(Device myDevice, int *amountDevices){
     }
     return 0;
 }
+
 int showOneDevice(Device myDevice, int numberDevice, int typeDevice){
     switch(typeDevice){
     case 0:
-        cout<<"\t\tModelo: "<<myDevice.AppleiPhone[numberDevice].model<<endl;
-        cout<<"\t\tColor: "<<myDevice.AppleiPhone[numberDevice].color<<endl;
-        cout<<"\t\tID: "<<myDevice.AppleiPhone[numberDevice].id_Device<<endl;
-        cout<<"\t\tAlmacenamiento: "<<myDevice.AppleiPhone[numberDevice].storage<<endl;
-        cout<<"\t\tPrecio: "<<myDevice.AppleiPhone[numberDevice].price<<endl;
-        cout<<"\t\tCamara: "<<myDevice.AppleiPhone[numberDevice].specsByModel.camera<<endl;
-        cout<<"\t\tChip: "<<myDevice.AppleiPhone[numberDevice].specsByModel.chip<<endl;
-        cout<<"\t\tConector: "<<myDevice.AppleiPhone[numberDevice].specsByModel.conector<<endl;
-        cout<<"\t\tPantalla: "<<myDevice.AppleiPhone[numberDevice].specsByModel.display<<endl;
-        cout<<"\t\tBateria: "<<myDevice.AppleiPhone[numberDevice].specsByModel.energy_batery<<endl;
-        cout<<"\t\tResistencia: "<<myDevice.AppleiPhone[numberDevice].specsByModel.resistance<<endl;
-        cout<<"\t\tSeguridad: "<<myDevice.AppleiPhone[numberDevice].specsByModel.secureAuth<<endl;
-        cout<<"\t\tGrosor: "<<myDevice.AppleiPhone[numberDevice].specsByModel.depth<<endl;
-        cout<<"\t\tAlto: "<<myDevice.AppleiPhone[numberDevice].specsByModel.height<<endl;
-        cout<<"\t\tPeso: "<<myDevice.AppleiPhone[numberDevice].specsByModel.weight<<endl;
-        cout<<"\t\tAncho: "<<myDevice.AppleiPhone[numberDevice].specsByModel.width<<endl<<endl;
+        cout<<"\tModelo: "<<myDevice.AppleiPhone[numberDevice].model<<endl;
+        cout<<"\tColor: "<<myDevice.AppleiPhone[numberDevice].color<<endl;
+        cout<<"\tID: "<<myDevice.AppleiPhone[numberDevice].id_Device<<endl;
+        cout<<"\tAlmacenamiento: "<<myDevice.AppleiPhone[numberDevice].storage<<endl;
+        cout<<"\tPrecio: "<<myDevice.AppleiPhone[numberDevice].price<<endl;
+        cout<<"\tCamara: "<<myDevice.AppleiPhone[numberDevice].specsByModel.camera<<endl;
+        cout<<"\tChip: "<<myDevice.AppleiPhone[numberDevice].specsByModel.chip<<endl;
+        cout<<"\tConector: "<<myDevice.AppleiPhone[numberDevice].specsByModel.conector<<endl;
+        cout<<"\tPantalla: "<<myDevice.AppleiPhone[numberDevice].specsByModel.display<<endl;
+        cout<<"\tBateria (rendimiento): "<<myDevice.AppleiPhone[numberDevice].specsByModel.energy_batery<<endl;
+        cout<<"\tResistencia: "<<myDevice.AppleiPhone[numberDevice].specsByModel.resistance<<endl;
+        cout<<"\tSeguridad: "<<myDevice.AppleiPhone[numberDevice].specsByModel.secureAuth<<endl;
+        cout<<"\tGrosor: "<<myDevice.AppleiPhone[numberDevice].specsByModel.depth<<endl;
+        cout<<"\tAlto: "<<myDevice.AppleiPhone[numberDevice].specsByModel.height<<endl;
+        cout<<"\tPeso: "<<myDevice.AppleiPhone[numberDevice].specsByModel.weight<<endl;
+        cout<<"\tAncho: "<<myDevice.AppleiPhone[numberDevice].specsByModel.width<<endl<<endl;
         break;
     case 1:
+        cout<<"\tModelo: "<<myDevice.AppleiPad[numberDevice].model<<endl;
+        cout<<"\tColor: "<<myDevice.AppleiPad[numberDevice].color<<endl;
+        cout<<"\tID: "<<myDevice.AppleiPad[numberDevice].id_Device<<endl;
+        cout<<"\tAlmacenamiento: "<<myDevice.AppleiPad[numberDevice].storage<<endl;
+        cout<<"\tPrecio: "<<myDevice.AppleiPad[numberDevice].price<<endl;
+        cout<<"\tCamara: "<<myDevice.AppleiPad[numberDevice].specsByModel.camera<<endl;
+        cout<<"\tChip: "<<myDevice.AppleiPad[numberDevice].specsByModel.chip<<endl;
+        cout<<"\tCompatibilidad: "<<myDevice.AppleiPad[numberDevice].specsByModel.compatibility<<endl;
+        cout<<"\tConector: "<<myDevice.AppleiPad[numberDevice].specsByModel.conector<<endl;
+        cout<<"\tPantalla: "<<myDevice.AppleiPad[numberDevice].specsByModel.display<<endl;
+        cout<<"\tBateria (Rendimiento): "<<myDevice.AppleiPad[numberDevice].specsByModel.energy_batery<<endl;
+        cout<<"\tSeguridad: "<<myDevice.AppleiPad[numberDevice].specsByModel.secureAuth<<endl;
+        cout<<"\tGrosor: "<<myDevice.AppleiPad[numberDevice].specsByModel.depth<<endl;
+        cout<<"\tAlto: "<<myDevice.AppleiPad[numberDevice].specsByModel.height<<endl;
+        cout<<"\tPeso: "<<myDevice.AppleiPad[numberDevice].specsByModel.weight<<endl;
+        cout<<"\tAncho: "<<myDevice.AppleiPad[numberDevice].specsByModel.width<<endl<<endl;
         break;
     case 2:
         break;
@@ -235,14 +259,75 @@ int showOneDevice(Device myDevice, int numberDevice, int typeDevice){
     }
     return 0;
 }
+
+int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
+    cout<<"\n\t\tID producto: ";
+    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+    cout<<"\t\tColor: ";
+    getline(cin,myDevice.AppleiPad[amountDevices].color);
+    cout<<"\t\tAlmacenamiento [GB]: ";
+    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
+    cout<<"\t\tPrecio (USD): ";
+    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
+
+    switch(selectedModel){
+        case 1:
+            myDevice.AppleiPad[amountDevices].model="iPad Pro";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
+            break;
+        case 2:
+            myDevice.AppleiPad[amountDevices].model="iPad Air";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
+            break;
+        case 3:
+            myDevice.AppleiPad[amountDevices].model="iPad mini";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
+            break;
+        default:
+            cout<<"\nError, modelo de iPad no encontrado\n";
+            break;
+    }
+    return 0;
+}
+
 int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
-    cout<<"\nID producto (4 números): ";
+    cout<<"\n\t\tID producto: ";
     cin>>myDevice.AppleiPhone[amountDevices].id_Device; cin.ignore();
-    cout<<"Color: ";
+    cout<<"\t\tColor: ";
     getline(cin,myDevice.AppleiPhone[amountDevices].color);
-    cout<<"Almacenamiento [GB]: ";
+    cout<<"\t\tAlmacenamiento [GB]: ";
     cin>>myDevice.AppleiPhone[amountDevices].storage; cin.ignore();
-    cout<<"Precio (USD): ";
+    cout<<"\t\tPrecio (USD): ";
     cin>>myDevice.AppleiPhone[amountDevices].price; cin.ignore();
 
     switch(selectedModel){
@@ -290,12 +375,12 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             break;
         case 4:
             myDevice.AppleiPhone[amountDevices].model="iPhone 13";
-            myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Ultra gran angular";
+            myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Ultra gran angular";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A15 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.1\" Pantalla Super Retina XDR";
-            myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 19 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
+            myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 19 horas de reproducción de video";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.65;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=146.7;
@@ -346,12 +431,12 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             break;
         case 8:
             myDevice.AppleiPhone[amountDevices].model="iPhone 11";
-            myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Ultra gran angular";
+            myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de dos cámaras Gran angular de 12 MP | Ultra gran angular";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="Chip A13 Bionic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.1\" Pantalla Liquid Retina HD";
-            myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 17 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua, 30 minutos - 2 metros | Aluminio de calidad aeroespacial";
+            myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 17 horas de reproducción de video";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua, 30 minutos - 2 metros | Aluminio de calidad aeroespacial";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=8.3;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=150.9;
@@ -386,11 +471,24 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.weight=174;
             myDevice.AppleiPhone[amountDevices].specsByModel.width=70.9;
             break;
+        default:
+            cout<<"\nError, modelo de iPhone no encontrado\n";
+            break;
     }
     return 0;
 }
+
+int showMenuiPad(){
+    cout<<"\n\t\tModelo del iPad: \n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. iPad Pro\n";
+    cout<<"  2-. iPad Air\n";
+    cout<<"  3-. iPad mini\n\n";
+    return 0;
+}
+
 int showMenuiPhone(){
-    cout<<"\n\t\tModelo del dispositivo: \n";
+    cout<<"\n\t\tModelo del iPhone: \n";
     cout<<"\t-------------------------------------------------------\n";
     cout<<"  1-. iPhone 14 Pro Max\n";
     cout<<"  2-. iPhone 14\n";
@@ -404,6 +502,7 @@ int showMenuiPhone(){
     cout<<"  10-. iPhone X\n\n";
     return 0;
 }
+
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
     int selectedModel;
     switch(selectedDevice){
@@ -414,6 +513,10 @@ int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
             amountDevices++;
             break;
         case 2:
+            showMenuiPad();
+            getMenuOption(selectedModel,1,3);
+            setiPadData(selectedModel,amountDevices,myDevice);
+            amountDevices++;
             break;
         case 3:
             break;
@@ -426,6 +529,7 @@ int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
     }
     return 0;
 }
+
 int showDeviceMenu(){
     cout<<"\n\t\t¿Con qué tipo de dispositivo desea trabajar?:\n";
     cout<<"\t-------------------------------------------------------\n";
@@ -436,6 +540,7 @@ int showDeviceMenu(){
     cout<<"  5-. Watch\n\n";
     return 0;
 }
+
 int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
     switch(mainOption){
         case 1: //Agregar un dispositivo
@@ -474,6 +579,7 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
     }
     return 0;
 }
+
 int getMenuOption(int &Option, int firstOption, int lastOption){
     do{
         cout<<"\tDigite una opción: ";
@@ -481,6 +587,7 @@ int getMenuOption(int &Option, int firstOption, int lastOption){
     }while(Option<firstOption || Option>lastOption);
     return 0;
 }
+
 int showMainMenu(){
     cout<<"\t\t\tMenú de opciones:\n";
     cout<<"\t-------------------------------------------------------\n";
