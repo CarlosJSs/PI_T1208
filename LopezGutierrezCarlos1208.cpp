@@ -87,7 +87,6 @@ struct iPhone_SpecsByModel{
 struct Watch{
     float price;
     string model;
-    //"Apple Watch Ultra","Apple Watch Series","Apple Watch SE";
     string color;
     int id_Device;
     Watch_SpecsByModel specsByModel;
@@ -95,7 +94,6 @@ struct Watch{
 struct AirPods{
     float price;
     string model;
-    //"AirPods (2da Generación)","AirPods (3ra Generación)","AirPods Pro","AirPods Max";
     string color;
     int id_Device;
     AirPods_SpecsByModel specsByModel;
@@ -105,7 +103,6 @@ struct Mac{
     float price;
     int storage;
     string model;
-    //"MacBook Pro","MacBook Air","iMac","iMac Pro","Mac mini","Mac studio","Mac Pro";
     string color;
     string CPU;
     string GPU;
@@ -143,6 +140,9 @@ int showMainMenu();
 int showDeviceMenu();
 int showMenuiPhone();
 int showMenuiPad();
+int showMenuMac();
+int showMenuAirPods();
+int showMenuWatch();
 int showOneDevice(Device myDevice, int numberDevice, int typeDevice);
 int showAllDevices(Device myDevice, int *amountDevices);
 
@@ -256,66 +256,6 @@ int showOneDevice(Device myDevice, int numberDevice, int typeDevice){
         break;
     default:
         break;
-    }
-    return 0;
-}
-
-int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
-    cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
-    cout<<"\t\tColor: ";
-    getline(cin,myDevice.AppleiPad[amountDevices].color);
-    cout<<"\t\tAlmacenamiento [GB]: ";
-    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
-    cout<<"\t\tPrecio (USD): ";
-    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
-
-    switch(selectedModel){
-        case 1:
-            myDevice.AppleiPad[amountDevices].model="iPad Pro";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
-            break;
-        case 2:
-            myDevice.AppleiPad[amountDevices].model="iPad Air";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
-            break;
-        case 3:
-            myDevice.AppleiPad[amountDevices].model="iPad mini";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
-            break;
-        default:
-            cout<<"\nError, modelo de iPad no encontrado\n";
-            break;
     }
     return 0;
 }
@@ -477,13 +417,240 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
     }
     return 0;
 }
+int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
+    cout<<"\n\t\tID producto: ";
+    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+    cout<<"\t\tColor: ";
+    getline(cin,myDevice.AppleiPad[amountDevices].color);
+    cout<<"\t\tAlmacenamiento [GB]: ";
+    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
+    cout<<"\t\tPrecio (USD): ";
+    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
 
-int showMenuiPad(){
-    cout<<"\n\t\tModelo del iPad: \n";
-    cout<<"\t-------------------------------------------------------\n";
-    cout<<"  1-. iPad Pro\n";
-    cout<<"  2-. iPad Air\n";
-    cout<<"  3-. iPad mini\n\n";
+    switch(selectedModel){
+        case 1:
+            myDevice.AppleiPad[amountDevices].model="iPad Pro";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
+            break;
+        case 2:
+            myDevice.AppleiPad[amountDevices].model="iPad Air";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
+            break;
+        case 3:
+            myDevice.AppleiPad[amountDevices].model="iPad mini";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
+            break;
+        default:
+            cout<<"\nError, modelo de iPad no encontrado\n";
+            break;
+    }
+    return 0;
+}
+int setMacData(int selectedModel, int amountDevices, Device &myDevice){
+    cout<<"\n\t\tID producto: ";
+    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+    cout<<"\t\tColor: ";
+    getline(cin,myDevice.AppleiPad[amountDevices].color);
+    cout<<"\t\tAlmacenamiento [GB]: ";
+    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
+    cout<<"\t\tPrecio (USD): ";
+    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
+
+    switch(selectedModel){
+        case 1:
+            myDevice.AppleiPad[amountDevices].model="iPad Pro";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
+            break;
+        case 2:
+            myDevice.AppleiPad[amountDevices].model="iPad Air";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
+            break;
+        case 3:
+            myDevice.AppleiPad[amountDevices].model="iPad mini";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
+            break;
+        default:
+            cout<<"\nError, modelo de iPad no encontrado\n";
+            break;
+    }
+    return 0;
+}
+int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice){
+    cout<<"\n\t\tID producto: ";
+    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+    cout<<"\t\tColor: ";
+    getline(cin,myDevice.AppleiPad[amountDevices].color);
+    cout<<"\t\tAlmacenamiento [GB]: ";
+    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
+    cout<<"\t\tPrecio (USD): ";
+    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
+
+    switch(selectedModel){
+        case 1:
+            myDevice.AppleiPad[amountDevices].model="iPad Pro";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
+            break;
+        case 2:
+            myDevice.AppleiPad[amountDevices].model="iPad Air";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
+            break;
+        case 3:
+            myDevice.AppleiPad[amountDevices].model="iPad mini";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
+            break;
+        default:
+            cout<<"\nError, modelo de iPad no encontrado\n";
+            break;
+    }
+    return 0;
+}
+int setWatchData(int selectedModel, int amountDevices, Device &myDevice){
+    cout<<"\n\t\tID producto: ";
+    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+    cout<<"\t\tColor: ";
+    getline(cin,myDevice.AppleiPad[amountDevices].color);
+    cout<<"\t\tAlmacenamiento [GB]: ";
+    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
+    cout<<"\t\tPrecio (USD): ";
+    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
+
+    switch(selectedModel){
+        case 1:
+            myDevice.AppleiPad[amountDevices].model="iPad Pro";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
+            break;
+        case 2:
+            myDevice.AppleiPad[amountDevices].model="iPad Air";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
+            break;
+        case 3:
+            myDevice.AppleiPad[amountDevices].model="iPad mini";
+            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
+            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
+            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
+            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
+            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
+            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
+            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
+            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
+            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
+            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
+            break;
+        default:
+            cout<<"\nError, modelo de iPad no encontrado\n";
+            break;
+    }
     return 0;
 }
 
@@ -500,6 +667,45 @@ int showMenuiPhone(){
     cout<<"  8-. iPhone 11\n";
     cout<<"  9-. iPhone Xs Max\n";
     cout<<"  10-. iPhone X\n\n";
+    return 0;
+}
+int showMenuiPad(){
+    cout<<"\n\t\tModelo del iPad: \n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. iPad Pro\n";
+    cout<<"  2-. iPad Air\n";
+    cout<<"  3-. iPad mini\n\n";
+    return 0;
+}
+int showMenuMac(){
+    //"MacBook Pro","MacBook Air","iMac","iMac Pro","Mac mini","Mac studio","Mac Pro";
+    cout<<"\n\t\tModelo de la Mac: \n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. MacBook Pro\n";
+    cout<<"  2-. MacBook Air\n";
+    cout<<"  3-. iMac\n";
+    cout<<"  4-. iMac Pro\n";
+    cout<<"  5-. iMac mini\n";
+    cout<<"  6-. Mac studio\n";
+    cout<<"  7-. Mac Pro\n";
+    return 0;
+}
+int showMenuAirPods(){
+    cout<<"\n\t\tModelo de los AirPods: \n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. AirPods (2da Generación)\n";
+    cout<<"  2-. AirPods (3ra Generación)\n";
+    cout<<"  3-. AirPods Pro\n";
+    cout<<"  4-. AirPods Max\n";
+    return 0;
+}
+int showMenuWatch(){
+    //"","","";
+    cout<<"\n\t\tModelo del Apple Watch: \n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. Apple Watch Ultra\n";
+    cout<<"  2-. Apple Watch Series\n";
+    cout<<"  3-. Apple Watch SE\n";
     return 0;
 }
 
@@ -519,12 +725,25 @@ int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
             amountDevices++;
             break;
         case 3:
+            showMenuMac();
+            getMenuOption(selectedModel,1,7);
+            setMacData(selectedModel,amountDevices,myDevice);
+            amountDevices++;
             break;
         case 4:
+            showMenuAirPods();
+            getMenuOption(selectedModel,1,4);
+            setAirPodsData(selectedModel,amountDevices,myDevice);
+            amountDevices++;
             break;
         case 5:
+            showMenuWatch();
+            getMenuOption(selectedModel,1,3);
+            setWatchData(selectedModel,amountDevices,myDevice);
+            amountDevices++;
             break;
         default:
+            cout<<"\nError, dispositivo no encontrado\n";
             break;
     }
     return 0;
@@ -543,13 +762,13 @@ int showDeviceMenu(){
 
 int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
     switch(mainOption){
-        case 1: //Agregar un dispositivo
+        case 1:
             int selectedDevice;
             showDeviceMenu();
             getMenuOption(selectedDevice,1,5);
             addDeviceOption(selectedDevice,myDevice,amountDevices[selectedDevice-1]);
             break;
-        case 2: //Mostrar todos los registros
+        case 2:
             showAllDevices(myDevice,amountDevices);
             break;
         case 3:
