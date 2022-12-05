@@ -5,6 +5,7 @@ Por Carlos Eduardo López Gutiérrez
 
 #include <iostream>
 #include <clocale>
+#include <fstream>
 
 #define DeviceMAX 100
 
@@ -157,6 +158,8 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
 
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 
+int generateFile(string fileName, Device myDevice, int *amountDevices);
+
 int main(void){
     system("COLOR F1");
     setlocale(LC_CTYPE, "spanish");
@@ -204,7 +207,7 @@ int showRegistersByDevice(int typeDevice, int *amountDevices, Device myDevice){
         break;
     }
     cout<<"\t-------------------------------------------------------\n";
-    for(int k=0;k<amountDevices[typeDevice];k++){
+    for(int k=0;k<amountDevices[typeDevice-1];k++){
             showOneDevice(myDevice,k,typeDevice-1);
     }
     return 0;
@@ -354,9 +357,9 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de cámaras Pro Gran angular de 48 MP | Ultra gran angular | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="A16 Bonic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
-            myDevice.AppleiPhone[amountDevices].specsByModel.display="6,7\" Super Retina XDR";
+            myDevice.AppleiPhone[amountDevices].specsByModel.display="6.7\" Super Retina XDR";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 29 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Acero inoxidable de calidad quirúrgica";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua | 30 minutos - 6 metros | Acero inoxidable de calidad quirúrgica";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.85;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=160.7;
@@ -368,9 +371,9 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema avanzado de dos cámaras Gran angular de 12 MP | Ultra gran angular";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="A15 Bonic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
-            myDevice.AppleiPhone[amountDevices].specsByModel.display="6,1\" Super Retina XDR";
+            myDevice.AppleiPhone[amountDevices].specsByModel.display="6.1\" Super Retina XDR";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 20 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua | 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.80;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=146.7;
@@ -382,7 +385,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.camera="Sistema de cámaras Pro Gran angular de 12 MP | Ultra gran angular | Teleobjetivo";
             myDevice.AppleiPhone[amountDevices].specsByModel.chip="A15 Bonic";
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
-            myDevice.AppleiPhone[amountDevices].specsByModel.display="6,7\" Super Retina XDR";
+            myDevice.AppleiPhone[amountDevices].specsByModel.display="6.7\" Super Retina XDR";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 28 horas de reproducción de video";
             myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Acero inoxidable de calidad quirúrgica";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
@@ -398,7 +401,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.1\" Pantalla Super Retina XDR";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 19 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua | 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.65;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=146.7;
@@ -412,7 +415,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.7\" Pantalla Super Retina XDR";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 20 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Acero inoxidable de calidad quirurgica";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua | 30 minutos - 6 metros | Acero inoxidable de calidad quirurgica";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.4;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=160.8;
@@ -426,7 +429,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.1\" Pantalla Super Retina XDR";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 17 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua, 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Frente de Ceramic Shield | Resistente al agua | 30 minutos - 6 metros | Aluminio de calidad aeroespacial";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.4;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=146.7;
@@ -440,7 +443,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.5\" Pantalla Super Retina XDR";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 20 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua, 30 minutos - 4 metros | Acero inoxidable de calidad quirúrgica";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua | 30 minutos - 4 metros | Acero inoxidable de calidad quirúrgica";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=8.1;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=158.0;
@@ -454,7 +457,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.1\" Pantalla Liquid Retina HD";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 17 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua, 30 minutos - 2 metros | Aluminio de calidad aeroespacial";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua | 30 minutos - 2 metros | Aluminio de calidad aeroespacial";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=8.3;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=150.9;
@@ -468,7 +471,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="6.5\" Pantalla Super Retina HD";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 15 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua, 30 minutos - 2 metros | Acero inoxidable de calidad quirúrgica";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua | 30 minutos - 2 metros | Acero inoxidable de calidad quirúrgica";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.7;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=157.5;
@@ -482,7 +485,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.conector="Lightning";
             myDevice.AppleiPhone[amountDevices].specsByModel.display="5.8\" Pantalla Super Retina HD";
             myDevice.AppleiPhone[amountDevices].specsByModel.energy_batery="Hasta 13 horas de reproducción de video";
-            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua, 30 minutos - 1 metro | Acero inoxidable de calidad quirúrgica";
+            myDevice.AppleiPhone[amountDevices].specsByModel.resistance="Delantera y posterior de vidrio | Resistente al agua | 30 minutos - 1 metro | Acero inoxidable de calidad quirúrgica";
             myDevice.AppleiPhone[amountDevices].specsByModel.secureAuth="Face ID";
             myDevice.AppleiPhone[amountDevices].specsByModel.depth=7.7;
             myDevice.AppleiPhone[amountDevices].specsByModel.height=143.6;
@@ -490,7 +493,7 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPhone[amountDevices].specsByModel.width=70.9;
             break;
         default:
-            cout<<"\nError, modelo de iPhone no encontrado\n";
+            cout<<"\nError modelo de iPhone no encontrado\n";
             break;
     }
     return 0;
@@ -510,7 +513,7 @@ int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPad[amountDevices].model="iPad Pro";
             myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
             myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) | Magic Keyboard | Smart Keyboard";
             myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
             myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
             myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
@@ -524,7 +527,7 @@ int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPad[amountDevices].model="iPad Air";
             myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
             myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
+            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) | Magic Keyboard | Smart Keyboard";
             myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
             myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
             myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
@@ -549,7 +552,7 @@ int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
             break;
         default:
-            cout<<"\nError, modelo de iPad no encontrado\n";
+            cout<<"\nError modelo de iPad no encontrado\n";
             break;
     }
     return 0;
@@ -568,7 +571,7 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
 
     switch(selectedModel){
         case 1:
-            myDevice.AppleiPad[amountDevices].model="MacBook Pro";
+            myDevice.AppleMac[amountDevices].model="MacBook Pro";
             myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 720p";
             myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M2 de Apple";
             myDevice.AppleMac[amountDevices].specsByModel.CPU="8 núcleos";
@@ -584,7 +587,7 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleMac[amountDevices].specsByModel.width=30.41;
             break;
         case 2:
-            myDevice.AppleiPad[amountDevices].model="MacBook Air";
+            myDevice.AppleMac[amountDevices].model="MacBook Air";
             myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 1080p";
             myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M2 de Apple";
             myDevice.AppleMac[amountDevices].specsByModel.CPU="8 núcleos";
@@ -600,7 +603,7 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleMac[amountDevices].specsByModel.width=30.41;
             break;
         case 3:
-            myDevice.AppleiPad[amountDevices].model="iMac";
+            myDevice.AppleMac[amountDevices].model="iMac";
             myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 1080p";
             myDevice.AppleMac[amountDevices].specsByModel.chip="Intel Core i9";
             myDevice.AppleMac[amountDevices].specsByModel.CPU="10 núcleos";
@@ -616,7 +619,7 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleMac[amountDevices].specsByModel.width=65;
             break;
         case 4:
-            myDevice.AppleiPad[amountDevices].model="iMac Pro";
+            myDevice.AppleMac[amountDevices].model="iMac Pro";
             myDevice.AppleMac[amountDevices].specsByModel.camera="Cámara FaceTime HD de 1080p";
             myDevice.AppleMac[amountDevices].specsByModel.chip="Intel Xeon W";
             myDevice.AppleMac[amountDevices].specsByModel.CPU="18 núcleos";
@@ -632,7 +635,7 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleMac[amountDevices].specsByModel.width=65;
             break;
         case 5:
-            myDevice.AppleiPad[amountDevices].model="Mac mini";
+            myDevice.AppleMac[amountDevices].model="Mac mini";
             myDevice.AppleMac[amountDevices].specsByModel.camera="No aplica";
             myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M1 de Apple";
             myDevice.AppleMac[amountDevices].specsByModel.CPU="8 núcleos";
@@ -648,7 +651,7 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleMac[amountDevices].specsByModel.width=19.7;
             break;
         case 6:
-            myDevice.AppleiPad[amountDevices].model="Mac studio";
+            myDevice.AppleMac[amountDevices].model="Mac studio";
             myDevice.AppleMac[amountDevices].specsByModel.camera="No aplica";
             myDevice.AppleMac[amountDevices].specsByModel.chip="Chip M1 Max de Apple o Chip M1 Ultra de Apple";
             myDevice.AppleMac[amountDevices].specsByModel.CPU="20 núcleos";
@@ -664,7 +667,7 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleMac[amountDevices].specsByModel.width=19.7;
             break;
         default:
-            cout<<"\nError, modelo de Mac no encontrado\n";
+            cout<<"\nError modelo de Mac no encontrado\n";
             break;
     }
     return 0;
@@ -763,7 +766,7 @@ int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleAirpods[amountDevices].caseSpecs.width=0;
             break;
         default:
-            cout<<"\nError, modelo de AirPods no encontrado\n";
+            cout<<"\nError modelo de AirPods no encontrado\n";
             break;
     }
     return 0;
@@ -781,9 +784,9 @@ int setWatchData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleWatch[amountDevices].model="AppleWatch Ultra";
             myDevice.AppleWatch[amountDevices].specsByModel.chip="LTE y UMTS";
             myDevice.AppleWatch[amountDevices].specsByModel.display="Pantalla Retina OLED LTPO siempre activa";
-            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas, choques, llamada SOS y Sirena";
-            myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 36 horas, carga rapida";
-            myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Oxígeno en sangre, ECG, Frecuencia cardiaca, Temperatura y Control de ciclo";
+            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas | choques | llamada SOS | Sirena";
+            myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 36 horas | carga rapida";
+            myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Oxígeno en sangre | ECG | Frecuencia cardiaca | Temperatura | Control de ciclo";
             myDevice.AppleWatch[amountDevices].specsByModel.material="Titanio";
             myDevice.AppleWatch[amountDevices].specsByModel.resistance="Certificación IP6X de resistencia al polvo | Resistencia al agua 100m";
             break;
@@ -791,9 +794,9 @@ int setWatchData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleWatch[amountDevices].model="AppleWatch Series";
             myDevice.AppleWatch[amountDevices].specsByModel.chip="LTE y UMTS";
             myDevice.AppleWatch[amountDevices].specsByModel.display="Pantalla Retina OLED LTPO siempre activa";
-            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas, choques, llamada SOS";
-            myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 18 horas, carga rapida";
-            myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Frecuencia cardiaca, Temperatura y Control de ciclo";
+            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas | choques | llamada SOS";
+            myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 18 horas | carga rapida";
+            myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Frecuencia cardiaca | Temperatura | Control de ciclo";
             myDevice.AppleWatch[amountDevices].specsByModel.material="Aluminio | Acero inoxidable";
             myDevice.AppleWatch[amountDevices].specsByModel.resistance="Certificación IP6X de resistencia al polvo | Resistencia al agua 50m";
             break;
@@ -801,14 +804,14 @@ int setWatchData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleWatch[amountDevices].model="AppleWatch SE";
             myDevice.AppleWatch[amountDevices].specsByModel.chip="LTE y UMTS";
             myDevice.AppleWatch[amountDevices].specsByModel.display="Pantalla Retina OLED LTPO";
-            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas, choques, llamada SOS";
+            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas | choques | llamada SOS";
             myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 18 horas";
             myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Frecuencia cardiaca y Control de ciclo";
             myDevice.AppleWatch[amountDevices].specsByModel.material="Aluminio";
             myDevice.AppleWatch[amountDevices].specsByModel.resistance="Resistencia al agua 50m";
             break;
         default:
-            cout<<"\nError, modelo de AppleWatch no encontrado\n";
+            cout<<"\nError modelo de AppleWatch no encontrado\n";
             break;
     }
     return 0;
@@ -859,12 +862,126 @@ int showMenuAirPods(){
     return 0;
 }
 int showMenuWatch(){
-    //"","","";
     cout<<"\n\t\tModelo del Apple Watch: \n";
     cout<<"\t-------------------------------------------------------\n";
     cout<<"  1-. Apple Watch Ultra\n";
     cout<<"  2-. Apple Watch Series\n";
     cout<<"  3-. Apple Watch SE\n\n";
+    return 0;
+}
+
+int generateFile(string fileName, Device myDevice, int *amountDevices){
+    ofstream myFile(fileName);
+    if(!myFile){
+        cout<<"\nNo se pudo abrir el archivo \""<<fileName<<"\" para escritura.\n";
+        return -1;
+    }
+
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                myFile<<myDevice.AppleiPhone[l].model
+                <<","<<myDevice.AppleiPhone[l].color
+                <<","<<myDevice.AppleiPhone[l].id_Device
+                <<","<<myDevice.AppleiPhone[l].storage
+                <<","<<myDevice.AppleiPhone[l].price
+                <<","<<myDevice.AppleiPhone[l].specsByModel.camera
+                <<","<<myDevice.AppleiPhone[l].specsByModel.chip
+                <<","<<myDevice.AppleiPhone[l].specsByModel.conector
+                <<","<<myDevice.AppleiPhone[l].specsByModel.display
+                <<","<<myDevice.AppleiPhone[l].specsByModel.energy_batery
+                <<","<<myDevice.AppleiPhone[l].specsByModel.resistance
+                <<","<<myDevice.AppleiPhone[l].specsByModel.secureAuth
+                <<","<<myDevice.AppleiPhone[l].specsByModel.depth
+                <<","<<myDevice.AppleiPhone[l].specsByModel.height
+                <<","<<myDevice.AppleiPhone[l].specsByModel.weight
+                <<","<<myDevice.AppleiPhone[l].specsByModel.width<<endl;
+                break;
+            case 1:
+                myFile<<myDevice.AppleiPad[l].model
+                <<","<<myDevice.AppleiPad[l].color
+                <<","<<myDevice.AppleiPad[l].id_Device
+                <<","<<myDevice.AppleiPad[l].storage
+                <<","<<myDevice.AppleiPad[l].price
+                <<","<<myDevice.AppleiPad[l].specsByModel.camera
+                <<","<<myDevice.AppleiPad[l].specsByModel.chip
+                <<","<<myDevice.AppleiPad[l].specsByModel.compatibility
+                <<","<<myDevice.AppleiPad[l].specsByModel.conector
+                <<","<<myDevice.AppleiPad[l].specsByModel.display
+                <<","<<myDevice.AppleiPad[l].specsByModel.energy_batery
+                <<","<<myDevice.AppleiPad[l].specsByModel.secureAuth
+                <<","<<myDevice.AppleiPad[l].specsByModel.depth
+                <<","<<myDevice.AppleiPad[l].specsByModel.height
+                <<","<<myDevice.AppleiPad[l].specsByModel.weight
+                <<","<<myDevice.AppleiPad[l].specsByModel.width<<endl;
+                break;
+            case 2:
+                myFile<<myDevice.AppleMac[l].model
+                <<","<<myDevice.AppleMac[l].color
+                <<","<<myDevice.AppleMac[l].id_Device
+                <<","<<myDevice.AppleMac[l].storage
+                <<","<<myDevice.AppleMac[l].RAM
+                <<","<<myDevice.AppleMac[l].price
+                <<","<<myDevice.AppleMac[l].specsByModel.camera
+                <<","<<myDevice.AppleMac[l].specsByModel.chip
+                <<","<<myDevice.AppleMac[l].specsByModel.CPU
+                <<","<<myDevice.AppleMac[l].specsByModel.display
+                <<","<<myDevice.AppleMac[l].specsByModel.energy_batery
+                <<","<<myDevice.AppleMac[l].specsByModel.GPU
+                <<","<<myDevice.AppleMac[l].specsByModel.keyboard_trackpad
+                <<","<<myDevice.AppleMac[l].specsByModel.ports
+                <<","<<myDevice.AppleMac[l].specsByModel.secureAuth
+                <<","<<myDevice.AppleMac[l].specsByModel.depth
+                <<","<<myDevice.AppleMac[l].specsByModel.height
+                <<","<<myDevice.AppleMac[l].specsByModel.weight
+                <<","<<myDevice.AppleMac[l].specsByModel.width<<endl;
+                break;
+            case 3:
+                myFile<<myDevice.AppleAirpods[l].model
+                <<","<<myDevice.AppleAirpods[l].color
+                <<","<<myDevice.AppleAirpods[l].id_Device
+                <<","<<myDevice.AppleAirpods[l].price
+                <<","<<myDevice.AppleAirpods[l].specsByModel.chargingCase
+                <<","<<myDevice.AppleAirpods[l].specsByModel.chip
+                <<","<<myDevice.AppleAirpods[l].specsByModel.conectivity
+                <<","<<myDevice.AppleAirpods[l].specsByModel.dependingTime
+                <<","<<myDevice.AppleAirpods[l].specsByModel.environmentMode
+                <<","<<myDevice.AppleAirpods[l].specsByModel.gestures
+                <<","<<myDevice.AppleAirpods[l].specsByModel.independentTime
+                <<","<<myDevice.AppleAirpods[l].specsByModel.noiseReduction
+                <<","<<myDevice.AppleAirpods[l].specsByModel.resistance
+                <<","<<myDevice.AppleAirpods[l].specsByModel.spaceSound
+                <<","<<myDevice.AppleAirpods[l].specsByModel.depth
+                <<","<<myDevice.AppleAirpods[l].specsByModel.height
+                <<","<<myDevice.AppleAirpods[l].specsByModel.weight
+                <<","<<myDevice.AppleAirpods[l].specsByModel.width
+                <<","<<myDevice.AppleAirpods[l].caseSpecs.depth
+                <<","<<myDevice.AppleAirpods[l].caseSpecs.height
+                <<","<<myDevice.AppleAirpods[l].caseSpecs.weight
+                <<","<<myDevice.AppleAirpods[l].caseSpecs.width<<endl;
+                break;
+            case 4:
+                myFile<<myDevice.AppleWatch[l].model
+                <<","<<myDevice.AppleWatch[l].color
+                <<","<<myDevice.AppleWatch[l].id_Device
+                <<","<<myDevice.AppleWatch[l].price
+                <<","<<myDevice.AppleWatch[l].specsByModel.chip
+                <<","<<myDevice.AppleWatch[l].specsByModel.display
+                <<","<<myDevice.AppleWatch[l].specsByModel.emergencyTools
+                <<","<<myDevice.AppleWatch[l].specsByModel.energy_batery
+                <<","<<myDevice.AppleWatch[l].specsByModel.healthTools
+                <<","<<myDevice.AppleWatch[l].specsByModel.material
+                <<","<<myDevice.AppleWatch[l].specsByModel.resistance<<endl;
+                break;
+            default:
+                myFile<<"Error, No se encontro el registro o tipo de dispositivo"<<endl;
+                break;
+            }
+        }
+    }
+
+    myFile.close();
     return 0;
 }
 
@@ -926,7 +1043,7 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             showRegistersByDevice(selectedDeviceFilter,amountDevices,myDevice);
             break;
         case 4:
-            cout<<"la 4";
+            generateFile("misRegistros.csv",myDevice,amountDevices);
             break;
         case 5:
             cout<<"la 5";
