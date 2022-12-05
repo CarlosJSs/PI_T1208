@@ -14,8 +14,6 @@ using namespace std;
 struct Watch_SpecsByModel{
     string display;
     string resistance;
-    string sensors;
-    string tools;
     string energy_batery;
     string material;
     string healthTools;
@@ -35,8 +33,8 @@ struct AirPods_SpecsByModel{
     string spaceSound;
     string resistance;
     string chip;
-    int independentTime;
-    int dependingTime;
+    string independentTime;
+    string dependingTime;
     string chargingCase;
     float height;
     float width;
@@ -272,30 +270,41 @@ int showOneDevice(Device myDevice, int numberDevice, int typeDevice){
         cout<<"\tAncho: "<<myDevice.AppleMac[numberDevice].specsByModel.width<<endl<<endl;
         break;
     case 3:
-        cout<<"\tModelo: "<<myDevice.AppleAirpods[numberDevice].model;
-        cout<<"\tColor: "<<myDevice.AppleAirpods[numberDevice].color;
-        cout<<"\tID: "<<myDevice.AppleAirpods[numberDevice].id_Device;
-        cout<<"\tPrecio: "<<myDevice.AppleAirpods[numberDevice].price;
-        cout<<"\tEstuche de carga: "<<myDevice.AppleAirpods[numberDevice].specsByModel.chargingCase;
-        cout<<"\tChip: "<<myDevice.AppleAirpods[numberDevice].specsByModel.chip;
-        cout<<"\tConectividad: "<<myDevice.AppleAirpods[numberDevice].specsByModel.conectivity;
-        cout<<"\tBateria dependiente: "<<myDevice.AppleAirpods[numberDevice].specsByModel.dependingTime;
-        cout<<"\tPlay mode: "<<myDevice.AppleAirpods[numberDevice].specsByModel.environmentMode;
-        cout<<"\tGestos: "<<myDevice.AppleAirpods[numberDevice].specsByModel.gestures;
-        cout<<"\tBateria independiente: "<<myDevice.AppleAirpods[numberDevice].specsByModel.independentTime;
-        cout<<"\tReducción de ruido: "<<myDevice.AppleAirpods[numberDevice].specsByModel.noiseReduction;
-        cout<<"\tResistencia: "<<myDevice.AppleAirpods[numberDevice].specsByModel.resistance;
-        cout<<"\tSonido espacial: "<<myDevice.AppleAirpods[numberDevice].specsByModel.spaceSound;
-        cout<<"\tGrosor (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.depth;
-        cout<<"\tAlto (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.height;
-        cout<<"\tPeso (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.weight;
-        cout<<"\tAncho (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.width;
-        cout<<"\tGrosor (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.depth;
-        cout<<"\tAlto (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.height;
-        cout<<"\tPeso (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.weight;
-        cout<<"\tAncho (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.width;
+        cout<<"\tModelo: "<<myDevice.AppleAirpods[numberDevice].model<<endl;
+        cout<<"\tColor: "<<myDevice.AppleAirpods[numberDevice].color<<endl;
+        cout<<"\tID: "<<myDevice.AppleAirpods[numberDevice].id_Device<<endl;
+        cout<<"\tPrecio: "<<myDevice.AppleAirpods[numberDevice].price<<endl;
+        cout<<"\tEstuche de carga: "<<myDevice.AppleAirpods[numberDevice].specsByModel.chargingCase<<endl;
+        cout<<"\tChip: "<<myDevice.AppleAirpods[numberDevice].specsByModel.chip<<endl;
+        cout<<"\tConectividad: "<<myDevice.AppleAirpods[numberDevice].specsByModel.conectivity<<endl;
+        cout<<"\tBateria dependiente: "<<myDevice.AppleAirpods[numberDevice].specsByModel.dependingTime<<endl;
+        cout<<"\tPlay mode: "<<myDevice.AppleAirpods[numberDevice].specsByModel.environmentMode<<endl;
+        cout<<"\tGestos: "<<myDevice.AppleAirpods[numberDevice].specsByModel.gestures<<endl;
+        cout<<"\tBateria independiente: "<<myDevice.AppleAirpods[numberDevice].specsByModel.independentTime<<endl;
+        cout<<"\tReducción de ruido: "<<myDevice.AppleAirpods[numberDevice].specsByModel.noiseReduction<<endl;
+        cout<<"\tResistencia: "<<myDevice.AppleAirpods[numberDevice].specsByModel.resistance<<endl;
+        cout<<"\tSonido espacial: "<<myDevice.AppleAirpods[numberDevice].specsByModel.spaceSound<<endl;
+        cout<<"\tGrosor (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.depth<<endl;
+        cout<<"\tAlto (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.height<<endl;
+        cout<<"\tPeso (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.weight<<endl;
+        cout<<"\tAncho (Airpod): "<<myDevice.AppleAirpods[numberDevice].specsByModel.width<<endl;
+        cout<<"\tGrosor (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.depth<<endl;
+        cout<<"\tAlto (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.height<<endl;
+        cout<<"\tPeso (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.weight<<endl;
+        cout<<"\tAncho (Case): "<<myDevice.AppleAirpods[numberDevice].caseSpecs.width<<endl<<endl;
         break;
     case 4:
+        cout<<"\tModelo: "<<myDevice.AppleWatch[numberDevice].model<<endl;
+        cout<<"\tColor: "<<myDevice.AppleWatch[numberDevice].color<<endl;
+        cout<<"\tID: "<<myDevice.AppleWatch[numberDevice].id_Device<<endl;
+        cout<<"\tPrecio: "<<myDevice.AppleWatch[numberDevice].price<<endl;
+        cout<<"\tChip: "<<myDevice.AppleWatch[numberDevice].specsByModel.chip<<endl;
+        cout<<"\tPantalla: "<<myDevice.AppleWatch[numberDevice].specsByModel.display<<endl;
+        cout<<"\tHerramientas de Emergencia: "<<myDevice.AppleWatch[numberDevice].specsByModel.emergencyTools<<endl;
+        cout<<"\tBateria (Rendimiento): "<<myDevice.AppleWatch[numberDevice].specsByModel.energy_batery<<endl;
+        cout<<"\tHerramientas de salud: "<<myDevice.AppleWatch[numberDevice].specsByModel.healthTools<<endl;
+        cout<<"\tMaterial: "<<myDevice.AppleWatch[numberDevice].specsByModel.material<<endl;
+        cout<<"\tResistencia: "<<myDevice.AppleWatch[numberDevice].specsByModel.resistance<<endl<<endl;
         break;
     default:
         cout<<"\nError, dispositivo no encontrado\n";
@@ -736,59 +745,45 @@ int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice){
 }
 int setWatchData(int selectedModel, int amountDevices, Device &myDevice){
     cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+    cin>>myDevice.AppleWatch[amountDevices].id_Device; cin.ignore();
     cout<<"\t\tColor: ";
-    getline(cin,myDevice.AppleiPad[amountDevices].color);
-    cout<<"\t\tAlmacenamiento [GB]: ";
-    cin>>myDevice.AppleiPad[amountDevices].storage; cin.ignore();
+    getline(cin,myDevice.AppleWatch[amountDevices].color);
     cout<<"\t\tPrecio (USD): ";
-    cin>>myDevice.AppleiPad[amountDevices].price; cin.ignore();
+    cin>>myDevice.AppleWatch[amountDevices].price; cin.ignore();
 
     switch(selectedModel){
         case 1:
-            myDevice.AppleiPad[amountDevices].model="iPad Pro";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP y cámara ultra gran angular de 10 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M2";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C compatible con thunderbolt/USB 4";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="12.9\" Pantalla Liquid Retina XDR";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Face ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.4;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=280.6;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=682;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=214.9;
+            myDevice.AppleWatch[amountDevices].model="AppleWatch Ultra";
+            myDevice.AppleWatch[amountDevices].specsByModel.chip="LTE y UMTS";
+            myDevice.AppleWatch[amountDevices].specsByModel.display="Pantalla Retina OLED LTPO siempre activa";
+            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas, choques, llamada SOS y Sirena";
+            myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 36 horas, carga rapida";
+            myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Oxígeno en sangre, ECG, Frecuencia cardiaca, Temperatura y Control de ciclo";
+            myDevice.AppleWatch[amountDevices].specsByModel.material="Titanio";
+            myDevice.AppleWatch[amountDevices].specsByModel.resistance="Certificación IP6X de resistencia al polvo | Resistencia al agua 100m";
             break;
         case 2:
-            myDevice.AppleiPad[amountDevices].model="iPad Air";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip M1";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G), Magic Keyboard y Smart Keyboard";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="10.9\" Pantalla Liquid Retina";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.1;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=247.6;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=461;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=178.5;
+            myDevice.AppleWatch[amountDevices].model="AppleWatch Series";
+            myDevice.AppleWatch[amountDevices].specsByModel.chip="LTE y UMTS";
+            myDevice.AppleWatch[amountDevices].specsByModel.display="Pantalla Retina OLED LTPO siempre activa";
+            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas, choques, llamada SOS";
+            myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 18 horas, carga rapida";
+            myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Frecuencia cardiaca, Temperatura y Control de ciclo";
+            myDevice.AppleWatch[amountDevices].specsByModel.material="Aluminio | Acero inoxidable";
+            myDevice.AppleWatch[amountDevices].specsByModel.resistance="Certificación IP6X de resistencia al polvo | Resistencia al agua 50m";
             break;
         case 3:
-            myDevice.AppleiPad[amountDevices].model="iPad mini";
-            myDevice.AppleiPad[amountDevices].specsByModel.camera="Cámara gran angular de 12 MP";
-            myDevice.AppleiPad[amountDevices].specsByModel.chip="Chip A15 Bionic";
-            myDevice.AppleiPad[amountDevices].specsByModel.compatibility="Compatible con Apple Pencil (2da G) y Teclados Bluetooth";
-            myDevice.AppleiPad[amountDevices].specsByModel.conector="Conector USB-C";
-            myDevice.AppleiPad[amountDevices].specsByModel.display="8.3\" Pantalla Liquid Retina";
-            myDevice.AppleiPad[amountDevices].specsByModel.energy_batery="Hasta 10 horas para navegar por Internet a través de Wi-Fi o ver videos";
-            myDevice.AppleiPad[amountDevices].specsByModel.secureAuth="Touch ID";
-            myDevice.AppleiPad[amountDevices].specsByModel.depth=6.3;
-            myDevice.AppleiPad[amountDevices].specsByModel.height=195.4;
-            myDevice.AppleiPad[amountDevices].specsByModel.weight=293;
-            myDevice.AppleiPad[amountDevices].specsByModel.width=134.8;
+            myDevice.AppleWatch[amountDevices].model="AppleWatch SE";
+            myDevice.AppleWatch[amountDevices].specsByModel.chip="LTE y UMTS";
+            myDevice.AppleWatch[amountDevices].specsByModel.display="Pantalla Retina OLED LTPO";
+            myDevice.AppleWatch[amountDevices].specsByModel.emergencyTools="Detección de caidas, choques, llamada SOS";
+            myDevice.AppleWatch[amountDevices].specsByModel.energy_batery="Hasta 18 horas";
+            myDevice.AppleWatch[amountDevices].specsByModel.healthTools="Frecuencia cardiaca y Control de ciclo";
+            myDevice.AppleWatch[amountDevices].specsByModel.material="Aluminio";
+            myDevice.AppleWatch[amountDevices].specsByModel.resistance="Resistencia al agua 50m";
             break;
         default:
-            cout<<"\nError, modelo de iPad no encontrado\n";
+            cout<<"\nError, modelo de AppleWatch no encontrado\n";
             break;
     }
     return 0;
@@ -835,7 +830,7 @@ int showMenuAirPods(){
     cout<<"  1-. AirPods (2da Generación)\n";
     cout<<"  2-. AirPods (3ra Generación)\n";
     cout<<"  3-. AirPods Pro\n";
-    cout<<"  4-. AirPods Max\n";
+    cout<<"  4-. AirPods Max\n\n";
     return 0;
 }
 int showMenuWatch(){
@@ -844,7 +839,7 @@ int showMenuWatch(){
     cout<<"\t-------------------------------------------------------\n";
     cout<<"  1-. Apple Watch Ultra\n";
     cout<<"  2-. Apple Watch Series\n";
-    cout<<"  3-. Apple Watch SE\n";
+    cout<<"  3-. Apple Watch SE\n\n";
     return 0;
 }
 
