@@ -143,6 +143,7 @@ int showMenuAirPods();
 int showMenuWatch();
 int showOneDevice(Device myDevice, int numberDevice, int typeDevice);
 int showAllDevices(Device myDevice, int *amountDevices);
+int showRegistersByDevice(int typeDevice, int *amountDevices, Device myDevice);
 
 int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice);
 int setiPadData(int selectedModel, int amountDevices, Device &myDevice);
@@ -184,6 +185,30 @@ int main(void){
 
 //***************************************** Functions ***********************************
 
+int showRegistersByDevice(int typeDevice, int *amountDevices, Device myDevice){
+    switch(typeDevice-1){
+    case 0:
+        cout<<"\n\t\tRegistros de iPhone: \n";
+        break;
+    case 1:
+        cout<<"\n\t\tRegistros de iPad: \n";
+        break;
+    case 2:
+        cout<<"\n\t\tRegistros de Mac: \n";
+        break;
+    case 3:
+        cout<<"\n\t\tRegistros de AirPods: \n";
+        break;
+    case 4:
+        cout<<"\n\t\tRegistros de Watch: \n";
+        break;
+    }
+    cout<<"\t-------------------------------------------------------\n";
+    for(int k=0;k<amountDevices[typeDevice];k++){
+            showOneDevice(myDevice,k,typeDevice-1);
+    }
+    return 0;
+}
 int showAllDevices(Device myDevice, int *amountDevices){
     for(int k=0;k<5;k++){
         switch(k){
@@ -895,25 +920,28 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             showAllDevices(myDevice,amountDevices);
             break;
         case 3:
-            cout<<"la 1";
+            int selectedDeviceFilter;
+            showDeviceMenu();
+            getMenuOption(selectedDeviceFilter,1,5);
+            showRegistersByDevice(selectedDeviceFilter,amountDevices,myDevice);
             break;
         case 4:
-            cout<<"la 1";
+            cout<<"la 4";
             break;
         case 5:
-            cout<<"la 1";
+            cout<<"la 5";
             break;
         case 6:
-            cout<<"la 1";
+            cout<<"la 6";
             break;
         case 7:
-            cout<<"la 1";
+            cout<<"la 7";
             break;
         case 8:
-            cout<<"la 1";
+            cout<<"la 8";
             break;
         case 9:
-            cout<<"la 1";
+            cout<<"la 9";
             break;
         default:
             cout<<"\nError, opción no encontrada.\n";
