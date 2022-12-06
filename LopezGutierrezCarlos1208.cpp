@@ -6,6 +6,7 @@ Por Carlos Eduardo López Gutiérrez
 #include <iostream>
 #include <clocale>
 #include <fstream>
+#include <cstring>
 
 #define DeviceMAX 100
 
@@ -870,6 +871,143 @@ int showMenuWatch(){
     return 0;
 }
 
+int whichTypeDevice(string dataStr){
+    int typeDevice=0;
+
+    if(dataStr=="iPhone 14 Pro Max" || dataStr=="iPhone 14" || dataStr=="iPhone 13 Pro Max" || dataStr=="iPhone 13" || dataStr=="iPhone 12 Pro Max" || dataStr=="iPhone 12" || dataStr=="iPhone 11 Pro Max" || dataStr=="iPhone 11" || dataStr=="iPhone Xs Max" || dataStr=="iPhone X")
+        typeDevice=0;
+    if(dataStr=="iPad Pro" || dataStr=="iPad Air" || dataStr=="iPad mini")
+        typeDevice=1;
+    if(dataStr=="MacBook Pro" || dataStr=="MacBook Air" || dataStr=="iMac" || dataStr=="iMac Pro" || dataStr=="iMac mini" || dataStr=="Mac studio")
+        typeDevice=2;
+    if(dataStr=="AirPods (2da Generación)" || dataStr=="AirPods (3ra Generación)" || dataStr=="AirPods Pro" || dataStr=="AirPods Max")
+        typeDevice=3;
+    if(dataStr=="Apple Watch Ultra" || dataStr=="Apple Watch Series" || dataStr=="Apple Watch SE")
+        typeDevice=4;
+
+    return typeDevice;
+}
+
+int getDataFromLine(string line, string *lineData, int maxAmountData){
+    int amountData=0;
+
+    char typeDevice[80];
+    strcpy(typeDevice,line.c_str());
+
+    char aux[80];
+    int idx=0;
+
+    int k=0;
+    while(typeDevice[k++]){
+        if(typeDevice[k-1]!=',')
+            aux[idx++]=typeDevice[k-1];
+        else{
+            aux[idx]='\0';
+            if(amountData==maxAmountData){
+                cout<<"\n\nLos datos en la cadena son mas que la capacidad.";
+                return amountData;
+            }
+            lineData[amountData++]=aux;
+            idx=0;
+        }
+    }
+    aux[idx]='\0';
+    if(amountData>=maxAmountData){
+        cout<<"\n\nLos tokens en la cadena son mas que la capacidad.";
+        return amountData;
+    }
+    lineData[amountData++]=aux;
+    return amountData;
+}
+
+int getInfoFromFile(string fileName, Device myDevice, int *amountDevices){
+    int maxAmountData=20;
+    string lineData[maxAmountData];
+
+    ifstream myFile(fileName);
+    if(!myFile){
+        cout<<"\nNo se pudo abrir el archivo para lectura\n";
+        return -1;
+    }
+
+    string line;
+    while(getline(myFile,line)){
+        getDataFromLine(line,lineData,maxAmountData);
+
+        int amountData=0;
+        switch(whichTypeDevice(lineData[0])){
+        case 0:
+            myDevice.AppleiPhone[amountDevices[0]].model=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].color=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].id_Device=atoi(lineData[++amountData].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].storage=atoi(lineData[++amountData].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].price=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.camera=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.chip=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.conector=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.display=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.energy_batery=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.resistance=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.secureAuth=lineData[++amountData];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.depth=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.height=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.weight=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.width=atof(lineData[amountData].c_str());
+            break;
+        case 1:
+            myDevice.AppleiPad[amountDevices[1]].model=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].color=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].id_Device=atoi(lineData[++amountData].c_str());
+            myDevice.AppleiPad[amountDevices[1]].storage=atoi(lineData[++amountData].c_str());
+            myDevice.AppleiPad[amountDevices[1]].price=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.camera=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.chip=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.compatibility=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.conector=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.display=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.energy_batery=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.secureAuth=lineData[++amountData];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.depth=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.height=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.weight=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.width=atof(lineData[amountData].c_str());
+            break;
+        case 2:
+            myDevice.AppleMac[amountDevices[2]].model=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].color=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].id_Device=atoi(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].storage=atoi(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].RAM=atoi(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].price=atof(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].specsByModel.camera=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.chip=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.CPU=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.display=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.energy_batery=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.GPU=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.keyboard_trackpad=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.ports=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.secureAuth=lineData[++amountData];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.depth=atof(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].specsByModel.height=atof(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].specsByModel.weight=atof(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].specsByModel.width=atof(lineData[amountData].c_str());
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        default:
+
+            break;
+        }
+        amountDevices[whichTypeDevice(lineData[0])]++;
+
+    }
+
+    myFile.close();
+    return 0;
+}
 int generateFile(string fileName, Device myDevice, int *amountDevices){
     ofstream myFile(fileName);
     if(!myFile){
@@ -1044,6 +1182,7 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             break;
         case 4:
             generateFile("misRegistros.csv",myDevice,amountDevices);
+
             break;
         case 5:
             cout<<"la 5";
