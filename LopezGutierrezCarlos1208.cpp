@@ -160,6 +160,9 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 
 int generateFile(string fileName, Device myDevice, int *amountDevices);
+int getAllDataFromFile(string fileName, Device &myDevice, int *amountDevices);
+int getDataFromLine(string line, string *lineData, int maxAmountData);
+int whichTypeDevice(string dataStr);
 
 int main(void){
     system("COLOR F1");
@@ -683,7 +686,7 @@ int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice){
 
     switch(selectedModel){
         case 1:
-            myDevice.AppleAirpods[amountDevices].model="AirPods 2da generación";
+            myDevice.AppleAirpods[amountDevices].model="AirPods 2da generacion";
             myDevice.AppleAirpods[amountDevices].specsByModel.chargingCase="Estuche de carga Lightning";
             myDevice.AppleAirpods[amountDevices].specsByModel.chip="Chip H1";
             myDevice.AppleAirpods[amountDevices].specsByModel.conectivity="Bluetooth 5.0";
@@ -704,7 +707,7 @@ int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice){
             myDevice.AppleAirpods[amountDevices].caseSpecs.width=44.3;
             break;
         case 2:
-            myDevice.AppleAirpods[amountDevices].model="AirPods 3ra generación";
+            myDevice.AppleAirpods[amountDevices].model="AirPods 3ra generacion";
             myDevice.AppleAirpods[amountDevices].specsByModel.chargingCase="Estuche de carga MagSafe";
             myDevice.AppleAirpods[amountDevices].specsByModel.chip="Chip H1";
             myDevice.AppleAirpods[amountDevices].specsByModel.conectivity="Bluetooth 5.0";
@@ -880,27 +883,29 @@ int whichTypeDevice(string dataStr){
         typeDevice=1;
     if(dataStr=="MacBook Pro" || dataStr=="MacBook Air" || dataStr=="iMac" || dataStr=="iMac Pro" || dataStr=="iMac mini" || dataStr=="Mac studio")
         typeDevice=2;
-    if(dataStr=="AirPods (2da Generación)" || dataStr=="AirPods (3ra Generación)" || dataStr=="AirPods Pro" || dataStr=="AirPods Max")
+    if(dataStr=="AirPods 2da generacion" || dataStr=="AirPods 3ra generacion" || dataStr=="AirPods Pro" || dataStr=="AirPods Max")
         typeDevice=3;
-    if(dataStr=="Apple Watch Ultra" || dataStr=="Apple Watch Series" || dataStr=="Apple Watch SE")
+    if(dataStr=="AppleWatch Ultra" || dataStr=="AppleWatch Series" || dataStr=="AppleWatch SE")
         typeDevice=4;
 
     return typeDevice;
 }
 
 int getDataFromLine(string line, string *lineData, int maxAmountData){
-    int amountData=0;
+    int amountData=0, MAXDATALINE=10000;
 
-    char typeDevice[80];
+    char typeDevice[MAXDATALINE];
     strcpy(typeDevice,line.c_str());
 
-    char aux[80];
+    char aux[MAXDATALINE];
     int idx=0;
 
     int k=0;
     while(typeDevice[k++]){
-        if(typeDevice[k-1]!=',')
+        if(typeDevice[k-1]!=','){
+
             aux[idx++]=typeDevice[k-1];
+        }
         else{
             aux[idx]='\0';
             if(amountData==maxAmountData){
@@ -920,8 +925,8 @@ int getDataFromLine(string line, string *lineData, int maxAmountData){
     return amountData;
 }
 
-int getInfoFromFile(string fileName, Device myDevice, int *amountDevices){
-    int maxAmountData=20;
+int getAllDataFromFile(string fileName, Device &myDevice, int *amountDevices){
+    int maxAmountData=25;
     string lineData[maxAmountData];
 
     ifstream myFile(fileName);
@@ -930,79 +935,111 @@ int getInfoFromFile(string fileName, Device myDevice, int *amountDevices){
         return -1;
     }
 
-    string line;
+    string line="";
     while(getline(myFile,line)){
         getDataFromLine(line,lineData,maxAmountData);
 
         int amountData=0;
         switch(whichTypeDevice(lineData[0])){
         case 0:
-            myDevice.AppleiPhone[amountDevices[0]].model=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].color=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].id_Device=atoi(lineData[++amountData].c_str());
-            myDevice.AppleiPhone[amountDevices[0]].storage=atoi(lineData[++amountData].c_str());
-            myDevice.AppleiPhone[amountDevices[0]].price=atof(lineData[++amountData].c_str());
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.camera=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.chip=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.conector=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.display=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.energy_batery=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.resistance=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.secureAuth=lineData[++amountData];
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.depth=atof(lineData[++amountData].c_str());
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.height=atof(lineData[++amountData].c_str());
-            myDevice.AppleiPhone[amountDevices[0]].specsByModel.weight=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].model=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].color=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].id_Device=atoi(lineData[amountData++].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].storage=atoi(lineData[amountData++].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].price=atof(lineData[amountData++].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.camera=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.chip=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.conector=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.display=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.energy_batery=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.resistance=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.secureAuth=lineData[amountData++];
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.depth=atof(lineData[amountData++].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.height=atof(lineData[amountData++].c_str());
+            myDevice.AppleiPhone[amountDevices[0]].specsByModel.weight=atof(lineData[amountData++].c_str());
             myDevice.AppleiPhone[amountDevices[0]].specsByModel.width=atof(lineData[amountData].c_str());
             break;
         case 1:
-            myDevice.AppleiPad[amountDevices[1]].model=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].color=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].id_Device=atoi(lineData[++amountData].c_str());
-            myDevice.AppleiPad[amountDevices[1]].storage=atoi(lineData[++amountData].c_str());
-            myDevice.AppleiPad[amountDevices[1]].price=atof(lineData[++amountData].c_str());
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.camera=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.chip=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.compatibility=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.conector=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.display=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.energy_batery=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.secureAuth=lineData[++amountData];
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.depth=atof(lineData[++amountData].c_str());
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.height=atof(lineData[++amountData].c_str());
-            myDevice.AppleiPad[amountDevices[1]].specsByModel.weight=atof(lineData[++amountData].c_str());
+            myDevice.AppleiPad[amountDevices[1]].model=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].color=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].id_Device=atoi(lineData[amountData++].c_str());
+            myDevice.AppleiPad[amountDevices[1]].storage=atoi(lineData[amountData++].c_str());
+            myDevice.AppleiPad[amountDevices[1]].price=atof(lineData[amountData++].c_str());
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.camera=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.chip=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.compatibility=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.conector=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.display=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.energy_batery=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.secureAuth=lineData[amountData++];
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.depth=atof(lineData[amountData++].c_str());
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.height=atof(lineData[amountData++].c_str());
+            myDevice.AppleiPad[amountDevices[1]].specsByModel.weight=atof(lineData[amountData++].c_str());
             myDevice.AppleiPad[amountDevices[1]].specsByModel.width=atof(lineData[amountData].c_str());
             break;
         case 2:
-            myDevice.AppleMac[amountDevices[2]].model=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].color=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].id_Device=atoi(lineData[++amountData].c_str());
-            myDevice.AppleMac[amountDevices[2]].storage=atoi(lineData[++amountData].c_str());
-            myDevice.AppleMac[amountDevices[2]].RAM=atoi(lineData[++amountData].c_str());
-            myDevice.AppleMac[amountDevices[2]].price=atof(lineData[++amountData].c_str());
-            myDevice.AppleMac[amountDevices[2]].specsByModel.camera=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.chip=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.CPU=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.display=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.energy_batery=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.GPU=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.keyboard_trackpad=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.ports=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.secureAuth=lineData[++amountData];
-            myDevice.AppleMac[amountDevices[2]].specsByModel.depth=atof(lineData[++amountData].c_str());
-            myDevice.AppleMac[amountDevices[2]].specsByModel.height=atof(lineData[++amountData].c_str());
-            myDevice.AppleMac[amountDevices[2]].specsByModel.weight=atof(lineData[++amountData].c_str());
+            myDevice.AppleMac[amountDevices[2]].model=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].color=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].id_Device=atoi(lineData[amountData++].c_str());
+            myDevice.AppleMac[amountDevices[2]].storage=atoi(lineData[amountData++].c_str());
+            myDevice.AppleMac[amountDevices[2]].RAM=atoi(lineData[amountData++].c_str());
+            myDevice.AppleMac[amountDevices[2]].price=atof(lineData[amountData++].c_str());
+            myDevice.AppleMac[amountDevices[2]].specsByModel.camera=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.chip=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.CPU=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.display=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.energy_batery=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.GPU=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.keyboard_trackpad=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.ports=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.secureAuth=lineData[amountData++];
+            myDevice.AppleMac[amountDevices[2]].specsByModel.depth=atof(lineData[amountData++].c_str());
+            myDevice.AppleMac[amountDevices[2]].specsByModel.height=atof(lineData[amountData++].c_str());
+            myDevice.AppleMac[amountDevices[2]].specsByModel.weight=atof(lineData[amountData++].c_str());
             myDevice.AppleMac[amountDevices[2]].specsByModel.width=atof(lineData[amountData].c_str());
             break;
         case 3:
+            myDevice.AppleAirpods[amountDevices[3]].model=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].color=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].id_Device=atoi(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].price=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.chargingCase=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.chip=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.conectivity=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.dependingTime=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.environmentMode=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.gestures=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.independentTime=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.noiseReduction=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.resistance=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.spaceSound=lineData[amountData++];
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.depth=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.height=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.weight=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].specsByModel.width=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].caseSpecs.depth=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].caseSpecs.height=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].caseSpecs.weight=atof(lineData[amountData++].c_str());
+            myDevice.AppleAirpods[amountDevices[3]].caseSpecs.width=atof(lineData[amountData].c_str());
             break;
         case 4:
+            myDevice.AppleWatch[amountDevices[4]].model=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].color=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].id_Device=atoi(lineData[amountData++].c_str());
+            myDevice.AppleWatch[amountDevices[4]].price=atof(lineData[amountData++].c_str());
+            myDevice.AppleWatch[amountDevices[4]].specsByModel.chip=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].specsByModel.display=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].specsByModel.emergencyTools=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].specsByModel.energy_batery=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].specsByModel.healthTools=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].specsByModel.material=lineData[amountData++];
+            myDevice.AppleWatch[amountDevices[4]].specsByModel.resistance=lineData[amountData];
             break;
         default:
-
+            cout<<"\nError al definir el tipo de dispositivo\n";
             break;
         }
         amountDevices[whichTypeDevice(lineData[0])]++;
-
     }
 
     myFile.close();
@@ -1182,10 +1219,9 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             break;
         case 4:
             generateFile("misRegistros.csv",myDevice,amountDevices);
-
             break;
         case 5:
-            cout<<"la 5";
+            getAllDataFromFile("tusRegistros.csv",myDevice,amountDevices);
             break;
         case 6:
             cout<<"la 6";
