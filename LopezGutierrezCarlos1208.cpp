@@ -7,6 +7,7 @@ Por Carlos Eduardo López Gutiérrez
 #include <clocale>
 #include <fstream>
 #include <cstring>
+#include <string>
 
 #define DeviceMAX 100
 
@@ -137,6 +138,7 @@ struct Device{
 
 //**************************************** Prototypes **********************************
 int showMainMenu();
+int showSearchMenu();
 int showDeviceMenu();
 int showMenuiPhone();
 int showMenuiPad();
@@ -157,12 +159,18 @@ int getMenuOption(int &Option, int firstOption, int lastOption);
 
 int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
 
+int searchByID(Device &myDevice, int *amountDevices, int ID);
+int searchByModel(Device &myDevice, int *amountDevices, string Model);
+int searchByColor(Device &myDevice, int *amountDevices, string Color);
+
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 
 int generateFile(string fileName, Device myDevice, int *amountDevices);
 int getAllDataFromFile(string fileName, Device &myDevice, int *amountDevices);
 int getDataFromLine(string line, string *lineData, int maxAmountData);
+
 int whichTypeDevice(string dataStr);
+int whichFilterSearch(int filterSearch, Device &myDevice, int *amountDevices);
 
 int main(void){
     system("COLOR F1");
@@ -177,9 +185,9 @@ int main(void){
 
     do{
         showMainMenu();
-        getMenuOption(menuSelectedOption,1,9);
+        getMenuOption(menuSelectedOption,1,10);
         performMainOption(menuSelectedOption,myDevice,amountDevices);
-    }while(menuSelectedOption!=9);
+    }while(menuSelectedOption!=10);
 
     for(int k=0;k<5;k++){
         cout<<amountDevices[k]<<"\n";
@@ -1160,6 +1168,144 @@ int generateFile(string fileName, Device myDevice, int *amountDevices){
     return 0;
 }
 
+int whichFilterSearch(int filterSearch, Device &myDevice, int *amountDevices){
+    string searchedModel;
+    string searchedColor;
+    switch(filterSearch){
+    case 1:
+        int searchedID;
+        cout<<"\n\t\tDigite el ID a cosultar: ";
+        cin>>searchedID;
+        searchByID(myDevice,amountDevices,searchedID);
+        break;
+    case 2:
+        cout<<"\n\t\tIngrese el modelo a consultar: ";
+        getline(cin,searchedModel);
+        searchByModel(myDevice,amountDevices,searchedModel);
+        break;
+    case 3:
+        cout<<"\n\t\tIngrese el color a consultar: ";
+        getline(cin,searchedColor);
+        searchByColor(myDevice,amountDevices,searchedColor);
+        break;
+    default:
+        cout<<"\nError no se encontro la opcion\n";
+        break;
+    }
+    return 0;
+}
+int searchByColor(Device &myDevice, int *amountDevices, string Color){
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                if(myDevice.AppleiPhone[l].color==Color){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 1:
+                if(myDevice.AppleiPad[l].color==Color){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 2:
+                if(myDevice.AppleMac[l].color==Color){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 3:
+                if(myDevice.AppleAirpods[l].color==Color){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 4:
+                if(myDevice.AppleWatch[l].color==Color){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            default:
+                cout<<"\nError no se encontro el registro\n";
+                break;
+            }
+        }
+    }
+    return 0;
+}
+int searchByModel(Device &myDevice, int *amountDevices, string Model){
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                if(myDevice.AppleiPhone[l].model==Model){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 1:
+                if(myDevice.AppleiPad[l].model==Model){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 2:
+                if(myDevice.AppleMac[l].model==Model){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 3:
+                if(myDevice.AppleAirpods[l].model==Model){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 4:
+                if(myDevice.AppleWatch[l].model==Model){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            default:
+                cout<<"\nError no se encontro el registro\n";
+                break;
+            }
+        }
+    }
+    return 0;
+}
+int searchByID(Device &myDevice, int *amountDevices, int ID){
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                if(myDevice.AppleiPhone[l].id_Device==ID){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 1:
+                if(myDevice.AppleiPad[l].id_Device==ID){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 2:
+                if(myDevice.AppleMac[l].id_Device==ID){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 3:
+                if(myDevice.AppleAirpods[l].id_Device==ID){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            case 4:
+                if(myDevice.AppleWatch[l].id_Device==ID){
+                    showOneDevice(myDevice,l,k);
+                }
+                break;
+            default:
+                cout<<"\nError no se encontro el registro\n";
+                break;
+            }
+        }
+    }
+    return 0;
+}
+
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
     int selectedModel;
     switch(selectedDevice){
@@ -1224,15 +1370,21 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             getAllDataFromFile("tusRegistros.csv",myDevice,amountDevices);
             break;
         case 6:
-            cout<<"la 6";
+            //ordenar
             break;
         case 7:
-            cout<<"la 7";
+            int globalFilter;
+            showSearchMenu();
+            getMenuOption(globalFilter,1,3);
+            whichFilterSearch(globalFilter,myDevice,amountDevices);
             break;
         case 8:
-            cout<<"la 8";
+            cout<<"la 7";
             break;
         case 9:
+            cout<<"la 8";
+            break;
+        case 10:
             cout<<"la 9";
             break;
         default:
@@ -1250,6 +1402,14 @@ int getMenuOption(int &Option, int firstOption, int lastOption){
     return 0;
 }
 
+int showSearchMenu(){
+    cout<<"\n\t\t¿Por qué dato desea realizar la busqueda?:\n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. ID\n";
+    cout<<"  2-. Modelo\n";
+    cout<<"  3-. Color\n";
+    return 0;
+}
 int showDeviceMenu(){
     cout<<"\n\t\t¿Con qué tipo de dispositivo desea trabajar?:\n";
     cout<<"\t-------------------------------------------------------\n";
@@ -1268,9 +1428,10 @@ int showMainMenu(){
     cout<<"  3-. Mostrar todos los registros (Dispositivo en especifico)\n";
     cout<<"  4-. Generar un archivo de texto con los datos actuales\n";
     cout<<"  5-. Obtener registros de un archivo de texto\n";
-    cout<<"  6-. Buscar un registro\n";
-    cout<<"  7-. Modificar un registro especifico\n";
-    cout<<"  8-. Eliminar un registro especifico\n";
-    cout<<"  9-. Salir\n\n";
+    cout<<"  6-. Ordenar registros\n";
+    cout<<"  7-. Buscar un registro\n";
+    cout<<"  8-. Modificar un registro especifico\n";
+    cout<<"  9-. Eliminar un registro especifico\n";
+    cout<<"  10-. Salir\n\n";
     return 0;
 }
