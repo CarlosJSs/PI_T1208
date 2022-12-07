@@ -166,7 +166,10 @@ int searchByID(Device &myDevice, int *amountDevices, int ID);
 int searchByModel(Device &myDevice, int *amountDevices, string Model);
 int searchByColor(Device &myDevice, int *amountDevices, string Color);
 
+int returnTypeByID(Device &myDevice, int *amountDevices, int ID);
+
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
+int deleteRegister(int ID, Device &myDevice, int *amountDevices);
 
 int generateFile(string fileName, Device myDevice, int *amountDevices);
 int getAllDataFromFile(string fileName, Device &myDevice, int *amountDevices);
@@ -1187,60 +1190,6 @@ int whichFilterOrder(int filterOrder, Device &myDevice, int *amountDevices){
     }
     return 0;
 }
-int orderByPrecio(Device &myDevice, int *amountDevices){
-    int sizeOrden=0;
-    //Definir el tamano
-    for(int k=0;k<5;k++)
-        for(int l=0;l<amountDevices[k];l++)
-            sizeOrden++;
-
-    //obtener todos los IDs y meterlos en un arreglo
-    float auxAllPrices[sizeOrden], counter2=0;
-    for(int k=0;k<5;k++){
-        for(int l=0;l<amountDevices[k];l++){
-            switch(k){
-            case 0:
-                auxAllPrices[counter2]=myDevice.AppleiPhone[l].price;
-                break;
-            case 1:
-                auxAllPrices[counter2]=myDevice.AppleiPad[l].price;
-                break;
-            case 2:
-                auxAllPrices[counter2]=myDevice.AppleMac[l].price;
-                break;
-            case 3:
-                auxAllPrices[counter2]=myDevice.AppleAirpods[l].price;
-                break;
-            case 4:
-                auxAllPrices[counter2]=myDevice.AppleWatch[l].price;
-                break;
-            }
-            counter2++;
-        }
-    }
-
-    //ordenar por el metodo de la burbuja
-    for(int idx=0;idx<sizeOrden-1;idx++){
-        int idxMenor=idx;
-        float menor=auxAllPrices[idxMenor]; //*
-        for(int k=idx+1;k<sizeOrden;k++){
-            if(auxAllPrices[k]<auxAllPrices[idxMenor]){ //*
-                idxMenor=k;
-            }
-        }
-        //intercambio
-        int aux=auxAllPrices[idx]; //*
-        auxAllPrices[idx]=auxAllPrices[idxMenor];
-        auxAllPrices[idxMenor]=aux;
-    }
-
-    //Muestra los registros ordenados
-    for(int k=0;k<sizeOrden;k++){
-        searchByID(myDevice,amountDevices,auxAllPrices[k]);
-    }
-
-    return 0;
-}
 int orderByID(Device &myDevice, int *amountDevices){
     int sizeOrden=0;
     //Definir el tamano
@@ -1434,6 +1383,100 @@ int searchByID(Device &myDevice, int *amountDevices, int ID){
     return 0;
 }
 
+int returnTypeByID(Device &myDevice, int *amountDevices, int ID){
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                if(myDevice.AppleiPhone[l].id_Device==ID){
+                    return 0;
+                }
+                break;
+            case 1:
+                if(myDevice.AppleiPad[l].id_Device==ID){
+                    return 1;
+                }
+                break;
+            case 2:
+                if(myDevice.AppleMac[l].id_Device==ID){
+                    return 2;
+                }
+                break;
+            case 3:
+                if(myDevice.AppleAirpods[l].id_Device==ID){
+                    return 3;
+                }
+                break;
+            case 4:
+                if(myDevice.AppleWatch[l].id_Device==ID){
+                    return 4;
+                }
+                break;
+            default:
+                cout<<"\nError no se encontro el registro\n";
+                break;
+            }
+        }
+    }
+}
+
+int deleteRegister(int ID, Device &myDevice, int *amountDevices){
+    int typeDvice=returnTypeByID(myDevice,amountDevices,ID);
+
+    switch(typeDvice){
+    case 0:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleiPhone[k].id_Device==ID){
+                for(int l=k;l<amountDevices[typeDvice];l++){
+                    myDevice.AppleiPhone[l]=myDevice.AppleiPhone[l+1];
+                }
+            }
+        }
+        break;
+    case 1:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleiPad[k].id_Device==ID){
+                for(int l=k;l<amountDevices[typeDvice];l++){
+                    myDevice.AppleiPad[l]=myDevice.AppleiPad[l+1];
+                }
+            }
+        }
+        break;
+    case 2:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleMac[k].id_Device==ID){
+                for(int l=k;l<amountDevices[typeDvice];l++){
+                    myDevice.AppleMac[l]=myDevice.AppleMac[l+1];
+                }
+            }
+        }
+        break;
+    case 3:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleAirpods[k].id_Device==ID){
+                for(int l=k;l<amountDevices[typeDvice];l++){
+                    myDevice.AppleAirpods[l]=myDevice.AppleAirpods[l+1];
+                }
+            }
+        }
+        break;
+    case 4:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleWatch[k].id_Device==ID){
+                for(int l=k;l<amountDevices[typeDvice];l++){
+                    myDevice.AppleWatch[l]=myDevice.AppleWatch[l+1];
+                }
+            }
+        }
+        break;
+    default:
+        cout<<"\nError al buscar el tipo de dispositivo\n";
+        break;
+    }
+    amountDevices[typeDvice]--;
+    return 0;
+}
+
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
     int selectedModel;
     switch(selectedDevice){
@@ -1513,11 +1556,14 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             //prueba
             break;
         case 9:
-            cout<<"la 8";
+            int deletedID;
+            cout<<"\n\t\tDigite el ID del registro a eliminar: ";
+            cin>>deletedID;
+            deleteRegister(deletedID,myDevice,amountDevices);
             break;
         case 10:
-            break;
             cout<<"\n\n\t\t\tSaliendo de la aplicacion...\n\n";
+            break;
         default:
             cout<<"\nError, opción no encontrada.\n";
             break;
