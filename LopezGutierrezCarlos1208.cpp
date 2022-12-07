@@ -140,6 +140,7 @@ struct Device{
 int showMainMenu();
 int showSearchMenu();
 int showDeviceMenu();
+int showOrderMenu();
 int showMenuiPhone();
 int showMenuiPad();
 int showMenuMac();
@@ -159,6 +160,8 @@ int getMenuOption(int &Option, int firstOption, int lastOption);
 
 int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
 
+int orderByID(Device &myDevice, int *amountDevices);
+
 int searchByID(Device &myDevice, int *amountDevices, int ID);
 int searchByModel(Device &myDevice, int *amountDevices, string Model);
 int searchByColor(Device &myDevice, int *amountDevices, string Color);
@@ -171,6 +174,7 @@ int getDataFromLine(string line, string *lineData, int maxAmountData);
 
 int whichTypeDevice(string dataStr);
 int whichFilterSearch(int filterSearch, Device &myDevice, int *amountDevices);
+int whichFilterOrder(int filterOrder, Device &myDevice, int *amountDevices);
 
 int main(void){
     system("COLOR F1");
@@ -1168,6 +1172,130 @@ int generateFile(string fileName, Device myDevice, int *amountDevices){
     return 0;
 }
 
+int whichFilterOrder(int filterOrder, Device &myDevice, int *amountDevices){
+    switch(filterOrder){
+    case 1:
+        orderByID(myDevice,amountDevices);
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    default:
+        cout<<"\nError no se encontro la opcion\n";
+        break;
+    }
+    return 0;
+}
+int orderByPrecio(Device &myDevice, int *amountDevices){
+    int sizeOrden=0;
+    //Definir el tamano
+    for(int k=0;k<5;k++)
+        for(int l=0;l<amountDevices[k];l++)
+            sizeOrden++;
+
+    //obtener todos los IDs y meterlos en un arreglo
+    float auxAllPrices[sizeOrden], counter2=0;
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                auxAllPrices[counter2]=myDevice.AppleiPhone[l].price;
+                break;
+            case 1:
+                auxAllPrices[counter2]=myDevice.AppleiPad[l].price;
+                break;
+            case 2:
+                auxAllPrices[counter2]=myDevice.AppleMac[l].price;
+                break;
+            case 3:
+                auxAllPrices[counter2]=myDevice.AppleAirpods[l].price;
+                break;
+            case 4:
+                auxAllPrices[counter2]=myDevice.AppleWatch[l].price;
+                break;
+            }
+            counter2++;
+        }
+    }
+
+    //ordenar por el metodo de la burbuja
+    for(int idx=0;idx<sizeOrden-1;idx++){
+        int idxMenor=idx;
+        float menor=auxAllPrices[idxMenor]; //*
+        for(int k=idx+1;k<sizeOrden;k++){
+            if(auxAllPrices[k]<auxAllPrices[idxMenor]){ //*
+                idxMenor=k;
+            }
+        }
+        //intercambio
+        int aux=auxAllPrices[idx]; //*
+        auxAllPrices[idx]=auxAllPrices[idxMenor];
+        auxAllPrices[idxMenor]=aux;
+    }
+
+    //Muestra los registros ordenados
+    for(int k=0;k<sizeOrden;k++){
+        searchByID(myDevice,amountDevices,auxAllPrices[k]);
+    }
+
+    return 0;
+}
+int orderByID(Device &myDevice, int *amountDevices){
+    int sizeOrden=0;
+    //Definir el tamano
+    for(int k=0;k<5;k++)
+        for(int l=0;l<amountDevices[k];l++)
+            sizeOrden++;
+
+    //obtener todos los IDs y meterlos en un arreglo
+    int auxAllIDs[sizeOrden], counter2=0;
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                auxAllIDs[counter2]=myDevice.AppleiPhone[l].id_Device;
+                break;
+            case 1:
+                auxAllIDs[counter2]=myDevice.AppleiPad[l].id_Device;
+                break;
+            case 2:
+                auxAllIDs[counter2]=myDevice.AppleMac[l].id_Device;
+                break;
+            case 3:
+                auxAllIDs[counter2]=myDevice.AppleAirpods[l].id_Device;
+                break;
+            case 4:
+                auxAllIDs[counter2]=myDevice.AppleWatch[l].id_Device;
+                break;
+            }
+            counter2++;
+        }
+    }
+
+    //ordenar por el metodo de la burbuja
+    for(int idx=0;idx<sizeOrden-1;idx++){
+        int idxMenor=idx;
+        float menor=auxAllIDs[idxMenor]; //*
+        for(int k=idx+1;k<sizeOrden;k++){
+            if(auxAllIDs[k]<auxAllIDs[idxMenor]){ //*
+                idxMenor=k;
+            }
+        }
+        //intercambio
+        int aux=auxAllIDs[idx]; //*
+        auxAllIDs[idx]=auxAllIDs[idxMenor];
+        auxAllIDs[idxMenor]=aux;
+    }
+
+    //Muestra los registros ordenados
+    for(int k=0;k<sizeOrden;k++){
+        searchByID(myDevice,amountDevices,auxAllIDs[k]);
+    }
+
+    return 0;
+}
+
 int whichFilterSearch(int filterSearch, Device &myDevice, int *amountDevices){
     string searchedModel;
     string searchedColor;
@@ -1370,7 +1498,10 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             getAllDataFromFile("tusRegistros.csv",myDevice,amountDevices);
             break;
         case 6:
-            //ordenar
+            int globalOrder;
+            showOrderMenu();
+            getMenuOption(globalOrder,1,3);
+            whichFilterOrder(globalOrder,myDevice,amountDevices);
             break;
         case 7:
             int globalFilter;
@@ -1379,14 +1510,14 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             whichFilterSearch(globalFilter,myDevice,amountDevices);
             break;
         case 8:
-            cout<<"la 7";
+            //prueba
             break;
         case 9:
             cout<<"la 8";
             break;
         case 10:
-            cout<<"la 9";
             break;
+            cout<<"\n\n\t\t\tSaliendo de la aplicacion...\n\n";
         default:
             cout<<"\nError, opción no encontrada.\n";
             break;
@@ -1402,6 +1533,14 @@ int getMenuOption(int &Option, int firstOption, int lastOption){
     return 0;
 }
 
+int showOrderMenu(){
+    cout<<"\n\t\t¿Por qué dato desea ordenar?:\n";
+    cout<<"\t-------------------------------------------------------\n";
+    cout<<"  1-. ID\n";
+    cout<<"  2-. Precio\n";
+    cout<<"  3-. Modelo\n";
+    return 0;
+}
 int showSearchMenu(){
     cout<<"\n\t\t¿Por qué dato desea realizar la busqueda?:\n";
     cout<<"\t-------------------------------------------------------\n";
