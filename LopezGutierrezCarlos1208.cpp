@@ -1281,8 +1281,10 @@ int whichFilterOrder(int filterOrder, Device &myDevice, int *amountDevices){
         orderByID(myDevice,amountDevices);
         break;
     case 2:
+        cout<<"\n\t\tFuncion no disponible :)\n";
         break;
     case 3:
+        cout<<"\n\t\tFuncion no disponible :)\n";
         break;
     default:
         cout<<"\nError no se encontro la opcion\n";
