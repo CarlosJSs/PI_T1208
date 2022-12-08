@@ -160,6 +160,8 @@ int getMenuOption(int &Option, int firstOption, int lastOption);
 
 int performMainOption(int mainOption, Device &myDevice, int *amountDevices);
 
+int idExists(int ID, Device &myDevice, int *amountDevices);
+
 int orderByID(Device &myDevice, int *amountDevices);
 
 int searchByID(Device &myDevice, int *amountDevices, int ID);
@@ -170,6 +172,7 @@ int returnTypeByID(Device &myDevice, int *amountDevices, int ID);
 
 int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 int deleteRegister(int ID, Device &myDevice, int *amountDevices);
+int modifyRegister(Device &myDevice, int *amountDevices, int ID);
 
 int generateFile(string fileName, Device myDevice, int *amountDevices);
 int getAllDataFromFile(string fileName, Device &myDevice, int *amountDevices);
@@ -358,6 +361,42 @@ int showOneDevice(Device myDevice, int numberDevice, int typeDevice){
         break;
     }
     return 0;
+}
+
+int idExists(int ID, Device &myDevice, int *amountDevices){
+    int Existence=0;
+    for(int k=0;k<5;k++){
+        for(int l=0;l<amountDevices[k];l++){
+            switch(k){
+            case 0:
+                if(myDevice.AppleiPhone[l].id_Device==ID){
+                    Existence=1;
+                }
+                break;
+            case 1:
+                if(myDevice.AppleiPad[l].id_Device==ID){
+                    Existence=1;
+                }
+                break;
+            case 2:
+                if(myDevice.AppleMac[l].id_Device==ID){
+                    Existence=1;
+                }
+                break;
+            case 3:
+                if(myDevice.AppleAirpods[l].id_Device==ID){
+                    Existence=1;
+                }
+                break;
+            case 4:
+                if(myDevice.AppleWatch[l].id_Device==ID){
+                    Existence=1;
+                }
+                break;
+            }
+        }
+    }
+    return Existence;
 }
 
 int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
@@ -1420,6 +1459,205 @@ int returnTypeByID(Device &myDevice, int *amountDevices, int ID){
     }
 }
 
+int modifyRegister(Device &myDevice, int *amountDevices, int ID){
+    int advanceData=0;
+    int typeDvice=returnTypeByID(myDevice,amountDevices,ID);
+    switch(typeDvice){
+    case 0:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleiPhone[k].id_Device==ID){
+                cout<<"\n\t\tID producto: ";
+                cin>>myDevice.AppleiPhone[k].id_Device; cin.ignore();
+                cout<<"\t\tColor: ";
+                getline(cin,myDevice.AppleiPhone[k].color);
+                cout<<"\t\tAlmacenamiento [GB]: ";
+                cin>>myDevice.AppleiPhone[k].storage; cin.ignore();
+                cout<<"\t\tPrecio (USD): ";
+                cin>>myDevice.AppleiPhone[k].price; cin.ignore();
+
+                cout<<"\t\t¿Desea modificar datos mas avanzados? (1-. SI \t 2-. NO): ";
+                do{
+                    cin>>advanceData; cin.ignore();
+                }while(advanceData<1 || advanceData>2);
+
+                if(advanceData==1){
+                    cout<<"\n\t\tCamara: ";
+                    getline(cin,myDevice.AppleiPhone[k].specsByModel.camera);
+                    cout<<"\n\t\tChip: ";
+                    getline(cin,myDevice.AppleiPhone[k].specsByModel.chip);
+                    cout<<"\n\t\tTipo de conexion: ";
+                    getline(cin,myDevice.AppleiPhone[k].specsByModel.conector);
+                    cout<<"\n\t\tPantalla: ";
+                    getline(cin,myDevice.AppleiPhone[k].specsByModel.display);
+                    cout<<"\n\t\tRendimiento: ";
+                    getline(cin,myDevice.AppleiPhone[k].specsByModel.energy_batery);
+                    cout<<"\n\t\tResistencia: ";
+                    getline(cin,myDevice.AppleiPhone[k].specsByModel.resistance);
+                    cout<<"\n\t\tTipo de seguridad: ";
+                    getline(cin,myDevice.AppleiPhone[k].specsByModel.secureAuth);
+                }
+            }
+        }
+        break;
+    case 1:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleiPad[k].id_Device==ID){
+                cout<<"\n\t\tID producto: ";
+                cin>>myDevice.AppleiPad[k].id_Device; cin.ignore();
+                cout<<"\t\tColor: ";
+                getline(cin,myDevice.AppleiPad[k].color);
+                cout<<"\t\tAlmacenamiento [GB]: ";
+                cin>>myDevice.AppleiPad[k].storage; cin.ignore();
+                cout<<"\t\tPrecio (USD): ";
+                cin>>myDevice.AppleiPad[k].price; cin.ignore();
+
+                cout<<"\t\t¿Desea modificar datos mas avanzados? (1-. SI \t 2-. NO): ";
+                do{
+                    cin>>advanceData; cin.ignore();
+                }while(advanceData<1 || advanceData>2);
+
+                if(advanceData==1){
+                    cout<<"\n\t\tCamara: ";
+                    getline(cin,myDevice.AppleiPad[k].specsByModel.camera);
+                    cout<<"\n\t\tChip: ";
+                    getline(cin,myDevice.AppleiPad[k].specsByModel.chip);
+                    cout<<"\n\t\tCompatibilidad: ";
+                    getline(cin,myDevice.AppleiPad[k].specsByModel.compatibility);
+                    cout<<"\n\t\tTipo de conexion: ";
+                    getline(cin,myDevice.AppleiPad[k].specsByModel.conector);
+                    cout<<"\n\t\tPantalla: ";
+                    getline(cin,myDevice.AppleiPad[k].specsByModel.display);
+                    cout<<"\n\t\tRendimiento: ";
+                    getline(cin,myDevice.AppleiPad[k].specsByModel.energy_batery);
+                    cout<<"\n\t\tTipo de seguridad: ";
+                    getline(cin,myDevice.AppleiPad[k].specsByModel.secureAuth);
+                }
+            }
+        }
+        break;
+    case 2:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleMac[k].id_Device==ID){
+                cout<<"\n\t\tID producto: ";
+                cin>>myDevice.AppleMac[k].id_Device; cin.ignore();
+                cout<<"\t\tColor: ";
+                getline(cin,myDevice.AppleMac[k].color);
+                cout<<"\t\tAlmacenamiento [GB]: ";
+                cin>>myDevice.AppleMac[k].storage; cin.ignore();
+                cout<<"\t\tMemoria RAM [GB]: ";
+                cin>>myDevice.AppleMac[k].RAM; cin.ignore();
+                cout<<"\t\tPrecio (USD): ";
+                cin>>myDevice.AppleMac[k].price; cin.ignore();
+
+                cout<<"\t\t¿Desea modificar datos mas avanzados? (1-. SI \t 2-. NO): ";
+                do{
+                    cin>>advanceData; cin.ignore();
+                }while(advanceData<1 || advanceData>2);
+
+                if(advanceData==1){
+                    cout<<"\n\t\tCamara: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.camera);
+                    cout<<"\n\t\tChip: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.chip);
+                    cout<<"\n\t\tCPU: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.CPU);
+                    cout<<"\n\t\tPantalla: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.display);
+                    cout<<"\n\t\tRendimiento: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.energy_batery);
+                    cout<<"\n\t\tGPU: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.GPU);
+                    cout<<"\n\t\tTeclado y mando: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.keyboard_trackpad);
+                    cout<<"\n\t\tPuertos: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.ports);
+                    cout<<"\n\t\tTipo de seguridad: ";
+                    getline(cin,myDevice.AppleMac[k].specsByModel.secureAuth);
+                }
+            }
+        }
+        break;
+    case 3:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleAirpods[k].id_Device==ID){
+                cout<<"\n\t\tID producto: ";
+                cin>>myDevice.AppleAirpods[k].id_Device; cin.ignore();
+                cout<<"\t\tColor: ";
+                getline(cin,myDevice.AppleAirpods[k].color);
+                cout<<"\t\tPrecio (USD): ";
+                cin>>myDevice.AppleAirpods[k].price; cin.ignore();
+
+                cout<<"\t\t¿Desea modificar datos mas avanzados? (1-. SI \t 2-. NO): ";
+                do{
+                    cin>>advanceData; cin.ignore();
+                }while(advanceData<1 || advanceData>2);
+
+                if(advanceData==1){
+                    cout<<"\n\t\tEstuche de carga: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.chargingCase);
+                    cout<<"\n\t\tChip: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.chip);
+                    cout<<"\n\t\tConectividad: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.conectivity);
+                    cout<<"\n\t\tTiempo dependiente: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.dependingTime);
+                    cout<<"\n\t\tModo de ambiente: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.environmentMode);
+                    cout<<"\n\t\tGestos: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.gestures);
+                    cout<<"\n\t\tTiempo independiente: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.independentTime);
+                    cout<<"\n\t\tReduccion de ruido: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.noiseReduction);
+                    cout<<"\n\t\tResistencia: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.resistance);
+                    cout<<"\n\t\tSonido espacial: ";
+                    getline(cin,myDevice.AppleAirpods[k].specsByModel.spaceSound);
+                }
+            }
+        }
+        break;
+    case 4:
+        for(int k=0;k<amountDevices[typeDvice];k++){
+            if(myDevice.AppleWatch[k].id_Device==ID){
+                cout<<"\n\t\tID producto: ";
+                cin>>myDevice.AppleWatch[k].id_Device; cin.ignore();
+                cout<<"\t\tColor: ";
+                getline(cin,myDevice.AppleWatch[k].color);
+                cout<<"\t\tPrecio (USD): ";
+                cin>>myDevice.AppleWatch[k].price; cin.ignore();
+
+                cout<<"\t\t¿Desea modificar datos mas avanzados? (1-. SI \t 2-. NO): ";
+                do{
+                    cin>>advanceData; cin.ignore();
+                }while(advanceData<1 || advanceData>2);
+
+                if(advanceData==1){
+                    cout<<"\n\t\tChip: ";
+                    getline(cin,myDevice.AppleWatch[k].specsByModel.chip);
+                    cout<<"\n\t\tPantalla: ";
+                    getline(cin,myDevice.AppleWatch[k].specsByModel.display);
+                    cout<<"\n\t\tHerramientas de emergencia: ";
+                    getline(cin,myDevice.AppleWatch[k].specsByModel.emergencyTools);
+                    cout<<"\n\t\tRendimiento: ";
+                    getline(cin,myDevice.AppleWatch[k].specsByModel.energy_batery);
+                    cout<<"\n\t\tHerramientas de salud: ";
+                    getline(cin,myDevice.AppleWatch[k].specsByModel.healthTools);
+                    cout<<"\n\t\tAcabado: ";
+                    getline(cin,myDevice.AppleWatch[k].specsByModel.material);
+                    cout<<"\n\t\tResistencia: ";
+                    getline(cin,myDevice.AppleWatch[k].specsByModel.resistance);
+                }
+            }
+        }
+        break;
+    default:
+        cout<<"\nError al buscar el tipo de dispositivo\n";
+        break;
+    }
+
+    return 0;
+}
 int deleteRegister(int ID, Device &myDevice, int *amountDevices){
     int typeDvice=returnTypeByID(myDevice,amountDevices,ID);
 
@@ -1553,7 +1791,10 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             whichFilterSearch(globalFilter,myDevice,amountDevices);
             break;
         case 8:
-            //prueba
+            int modifiedID;
+            cout<<"\n\t\tDigite el ID del registro a modificar: ";
+            cin>>modifiedID;
+            modifyRegister(myDevice,amountDevices,modifiedID);
             break;
         case 9:
             int deletedID;
