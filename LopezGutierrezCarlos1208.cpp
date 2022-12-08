@@ -205,10 +205,6 @@ int main(void){
         performMainOption(menuSelectedOption,myDevice,amountDevices);
     }while(menuSelectedOption!=10);
 
-    for(int k=0;k<5;k++){
-        cout<<amountDevices[k]<<"\n";
-    }
-
     // ********************************** Footer ****************************************
     cout << "\n\n\n\nPara salir, presiona la tecla 'Enter'";
     cin.get();
@@ -1512,8 +1508,16 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 0:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleiPhone[k].id_Device==ID){
-                cout<<"\n\t\tID producto: ";
-                cin>>myDevice.AppleiPhone[k].id_Device; cin.ignore();
+                int auxID, auxCounter=0;
+                do{
+                    if(auxCounter>0)
+                        cout<<"\n\t\tYa existe un producto registrado con ese ID";
+                    cout<<"\n\t\tID producto: ";
+                    cin>>auxID; cin.ignore();
+                    auxCounter++;
+                }while(idExists(auxID,myDevice,amountDevices) && auxID!=ID);
+                myDevice.AppleiPhone[k].id_Device=auxID;
+
                 cout<<"\t\tColor: ";
                 getline(cin,myDevice.AppleiPhone[k].color);
                 cout<<"\t\tAlmacenamiento [GB]: ";
@@ -1548,8 +1552,16 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 1:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleiPad[k].id_Device==ID){
-                cout<<"\n\t\tID producto: ";
-                cin>>myDevice.AppleiPad[k].id_Device; cin.ignore();
+                int auxID, auxCounter=0;
+                do{
+                    if(auxCounter>0)
+                        cout<<"\n\t\tYa existe un producto registrado con ese ID";
+                    cout<<"\n\t\tID producto: ";
+                    cin>>auxID; cin.ignore();
+                    auxCounter++;
+                }while(idExists(auxID,myDevice,amountDevices) && auxID!=ID);
+                myDevice.AppleiPad[k].id_Device=auxID;
+
                 cout<<"\t\tColor: ";
                 getline(cin,myDevice.AppleiPad[k].color);
                 cout<<"\t\tAlmacenamiento [GB]: ";
@@ -1584,8 +1596,16 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 2:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleMac[k].id_Device==ID){
-                cout<<"\n\t\tID producto: ";
-                cin>>myDevice.AppleMac[k].id_Device; cin.ignore();
+                int auxID, auxCounter=0;
+                do{
+                    if(auxCounter>0)
+                        cout<<"\n\t\tYa existe un producto registrado con ese ID";
+                    cout<<"\n\t\tID producto: ";
+                    cin>>auxID; cin.ignore();
+                    auxCounter++;
+                }while(idExists(auxID,myDevice,amountDevices) && auxID!=ID);
+                myDevice.AppleMac[k].id_Device=auxID;
+
                 cout<<"\t\tColor: ";
                 getline(cin,myDevice.AppleMac[k].color);
                 cout<<"\t\tAlmacenamiento [GB]: ";
@@ -1626,8 +1646,16 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 3:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleAirpods[k].id_Device==ID){
-                cout<<"\n\t\tID producto: ";
-                cin>>myDevice.AppleAirpods[k].id_Device; cin.ignore();
+                int auxID, auxCounter=0;
+                do{
+                    if(auxCounter>0)
+                        cout<<"\n\t\tYa existe un producto registrado con ese ID";
+                    cout<<"\n\t\tID producto: ";
+                    cin>>auxID; cin.ignore();
+                    auxCounter++;
+                }while(idExists(auxID,myDevice,amountDevices) && auxID!=ID);
+                myDevice.AppleAirpods[k].id_Device=auxID;
+
                 cout<<"\t\tColor: ";
                 getline(cin,myDevice.AppleAirpods[k].color);
                 cout<<"\t\tPrecio (USD): ";
@@ -1666,8 +1694,16 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 4:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleWatch[k].id_Device==ID){
-                cout<<"\n\t\tID producto: ";
-                cin>>myDevice.AppleWatch[k].id_Device; cin.ignore();
+                int auxID, auxCounter=0;
+                do{
+                    if(auxCounter>0)
+                        cout<<"\n\t\tYa existe un producto registrado con ese ID";
+                    cout<<"\n\t\tID producto: ";
+                    cin>>auxID; cin.ignore();
+                    auxCounter++;
+                }while(idExists(auxID,myDevice,amountDevices) && auxID!=ID);
+                myDevice.AppleWatch[k].id_Device=auxID;
+
                 cout<<"\t\tColor: ";
                 getline(cin,myDevice.AppleWatch[k].color);
                 cout<<"\t\tPrecio (USD): ";
