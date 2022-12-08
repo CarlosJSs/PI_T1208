@@ -400,8 +400,17 @@ int idExists(int ID, Device &myDevice, int *amountDevices){
 }
 
 int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
-    cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleiPhone[amountDevices].id_Device; cin.ignore();
+    int auxID, auxCounter=0;
+
+    do{
+        if(auxCounter>0)
+            cout<<"\n\t\tYa existe un producto registrado con ese ID";
+        cout<<"\n\t\tID producto: ";
+        cin>>auxID; cin.ignore();
+        auxCounter++;
+    }while(idExists(auxID,myDevice,amountDevices));
+
+    myDevice.AppleiPhone[amountDevices].id_Device=auxID;
     cout<<"\t\tColor: ";
     getline(cin,myDevice.AppleiPhone[amountDevices].color);
     cout<<"\t\tAlmacenamiento [GB]: ";
