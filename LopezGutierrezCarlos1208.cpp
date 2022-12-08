@@ -137,6 +137,8 @@ struct Device{
 };
 
 //**************************************** Prototypes **********************************
+int showHeader();
+int showFooter();
 int showMainMenu();
 int showSearchMenu();
 int showDeviceMenu();
@@ -191,9 +193,8 @@ int whichFilterOrder(int filterOrder, Device &myDevice, int *amountDevices);
 int main(void){
     system("COLOR F1");
     setlocale(LC_CTYPE, "spanish");
-    // ************************************ Code ***************************************
 
-    cout<<"\n\t\tBase de Datos de un Hombre Pobre\n\n";
+    showHeader();
 
     Device myDevice;
     int menuSelectedOption;
@@ -205,12 +206,21 @@ int main(void){
         performMainOption(menuSelectedOption,myDevice,amountDevices);
     }while(menuSelectedOption!=10);
 
-    // ********************************** Footer ****************************************
-    cout << "\n\n\n\nPara salir, presiona la tecla 'Enter'";
-    cin.get();
+    showFooter();
 }
 
 //***************************************** Functions ***********************************
+
+int showHeader(){
+    cout<<"\n\t\tBase de Datos de un Hombre Pobre\n\n";
+    cout<<"\n\t\tBienvenido a su inventario Apple\n\n";
+    return 0;
+}
+int showFooter(){
+    cout << "\n\n\n\nPara salir, presiona la tecla 'Enter'";
+    cin.get();
+    return 0;
+}
 
 int showRegistersByDevice(int typeDevice, int *amountDevices, Device myDevice){
     switch(typeDevice-1){
@@ -234,9 +244,12 @@ int showRegistersByDevice(int typeDevice, int *amountDevices, Device myDevice){
     for(int k=0;k<amountDevices[typeDevice-1];k++){
             showOneDevice(myDevice,k,typeDevice-1);
     }
+    cout<<"\n\t-------------------------------------------------------\n";
     return 0;
 }
 int showAllDevices(Device myDevice, int *amountDevices){
+    cout<<"\n\t\tSe muestran todos los registros:\n";
+    cout<<"\t-------------------------------------------------------\n";
     for(int k=0;k<5;k++){
         switch(k){
         case 0:
@@ -1137,6 +1150,8 @@ int getAllDataFromFile(string fileName, Device &myDevice, int *amountDevices){
         }
         amountDevices[whichTypeDevice(lineData[0])]++;
     }
+    cout<<"\n\tSe obtuvieron satisfactoriamente los registros del archivo \"tusRegistros.csv\"\n";
+    cout<<"\n\t-------------------------------------------------------\n";
 
     myFile.close();
     return 0;
@@ -1251,12 +1266,16 @@ int generateFile(string fileName, Device myDevice, int *amountDevices){
             }
         }
     }
+    cout<<"\n\tEl archivo de texto se ha generado satisfactoriamente como \"misRegistros.csv\"\n";
+    cout<<"\n\t-------------------------------------------------------\n";
 
     myFile.close();
     return 0;
 }
 
 int whichFilterOrder(int filterOrder, Device &myDevice, int *amountDevices){
+    cout<<"\n\t\tOrdenando los datos\n";
+    cout<<"\t-------------------------------------------------------\n\n";
     switch(filterOrder){
     case 1:
         orderByID(myDevice,amountDevices);
@@ -1269,6 +1288,7 @@ int whichFilterOrder(int filterOrder, Device &myDevice, int *amountDevices){
         cout<<"\nError no se encontro la opcion\n";
         break;
     }
+    cout<<"\n\n\t-----------------------------------------------------------------------------\n";
     return 0;
 }
 int orderByID(Device &myDevice, int *amountDevices){
@@ -1508,6 +1528,9 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 0:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleiPhone[k].id_Device==ID){
+                cout<<"\n\t-------------------------------------------------------\n";
+                cout<<"\t\tModificando un dispositivo iPhone\n";
+                cout<<"\t-------------------------------------------------------\n";
                 int auxID, auxCounter=0;
                 do{
                     if(auxCounter>0)
@@ -1552,6 +1575,9 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 1:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleiPad[k].id_Device==ID){
+                cout<<"\n\t-------------------------------------------------------\n";
+                cout<<"\t\tModificando un dispositivo iPad\n";
+                cout<<"\t-------------------------------------------------------\n";
                 int auxID, auxCounter=0;
                 do{
                     if(auxCounter>0)
@@ -1596,6 +1622,9 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 2:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleMac[k].id_Device==ID){
+                cout<<"\n\t-------------------------------------------------------\n";
+                cout<<"\t\tModificando un dispositivo Mac\n";
+                cout<<"\t-------------------------------------------------------\n";
                 int auxID, auxCounter=0;
                 do{
                     if(auxCounter>0)
@@ -1646,6 +1675,9 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 3:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleAirpods[k].id_Device==ID){
+                cout<<"\n\t-------------------------------------------------------\n";
+                cout<<"\t\tModificando un dispositivo AirPods\n";
+                cout<<"\t-------------------------------------------------------\n";
                 int auxID, auxCounter=0;
                 do{
                     if(auxCounter>0)
@@ -1694,6 +1726,9 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
     case 4:
         for(int k=0;k<amountDevices[typeDvice];k++){
             if(myDevice.AppleWatch[k].id_Device==ID){
+                cout<<"\n\t-------------------------------------------------------\n";
+                cout<<"\t\tModificando un dispositivo AppleWatch\n";
+                cout<<"\t-------------------------------------------------------\n";
                 int auxID, auxCounter=0;
                 do{
                     if(auxCounter>0)
@@ -1742,6 +1777,12 @@ int modifyRegister(Device &myDevice, int *amountDevices, int ID){
 }
 int deleteRegister(int ID, Device &myDevice, int *amountDevices){
     int typeDvice=returnTypeByID(myDevice,amountDevices,ID);
+
+    if(!idExists(ID,myDevice,amountDevices)){
+        cout<<"\n\t\tEl ID ingresado no existe\n";
+        cout<<"\n\t-------------------------------------------------------\n";
+        return -1;
+    }
 
     switch(typeDvice){
     case 0:
@@ -1794,6 +1835,9 @@ int deleteRegister(int ID, Device &myDevice, int *amountDevices){
         break;
     }
     amountDevices[typeDvice]--;
+
+    cout<<"\t\tSe elimino el registro con ID: "<<ID<<"\n";
+    cout<<"\n\t-------------------------------------------------------\n";
     return 0;
 }
 
@@ -1834,6 +1878,8 @@ int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices, in
             cout<<"\nError, dispositivo no encontrado\n";
             break;
     }
+    cout<<"\n\t\tEl dispositivo se ha agregado correctamente\n";
+    cout<<"\n\t-------------------------------------------------------\n";
     return 0;
 }
 
