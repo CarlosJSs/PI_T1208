@@ -150,11 +150,16 @@ int showOneDevice(Device myDevice, int numberDevice, int typeDevice);
 int showAllDevices(Device myDevice, int *amountDevices);
 int showRegistersByDevice(int typeDevice, int *amountDevices, Device myDevice);
 
-int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice);
-int setiPadData(int selectedModel, int amountDevices, Device &myDevice);
-int setMacData(int selectedModel, int amountDevices, Device &myDevice);
-int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice);
-int setWatchData(int selectedModel, int amountDevices, Device &myDevice);
+int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev);
+int setiPadData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev);
+int setMacData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev);
+int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev);
+int setWatchData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev);
+//int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice);
+//int setiPadData(int selectedModel, int amountDevices, Device &myDevice);
+//int setMacData(int selectedModel, int amountDevices, Device &myDevice);
+//int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice);
+//int setWatchData(int selectedModel, int amountDevices, Device &myDevice);
 
 int getMenuOption(int &Option, int firstOption, int lastOption);
 
@@ -170,7 +175,8 @@ int searchByColor(Device &myDevice, int *amountDevices, string Color);
 
 int returnTypeByID(Device &myDevice, int *amountDevices, int ID);
 
-int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
+int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices, int *anotherAD);
+//int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices);
 int deleteRegister(int ID, Device &myDevice, int *amountDevices);
 int modifyRegister(Device &myDevice, int *amountDevices, int ID);
 
@@ -399,18 +405,17 @@ int idExists(int ID, Device &myDevice, int *amountDevices){
     return Existence;
 }
 
-int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
+int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev){
     int auxID, auxCounter=0;
-
     do{
         if(auxCounter>0)
             cout<<"\n\t\tYa existe un producto registrado con ese ID";
         cout<<"\n\t\tID producto: ";
         cin>>auxID; cin.ignore();
         auxCounter++;
-    }while(idExists(auxID,myDevice,amountDevices));
-
+    }while(idExists(auxID,myDevice,anotherADev));
     myDevice.AppleiPhone[amountDevices].id_Device=auxID;
+
     cout<<"\t\tColor: ";
     getline(cin,myDevice.AppleiPhone[amountDevices].color);
     cout<<"\t\tAlmacenamiento [GB]: ";
@@ -565,9 +570,17 @@ int setiPhoneData(int selectedModel, int amountDevices, Device &myDevice){
     }
     return 0;
 }
-int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
-    cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleiPad[amountDevices].id_Device; cin.ignore();
+int setiPadData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev){
+    int auxID, auxCounter=0;
+    do{
+        if(auxCounter>0)
+            cout<<"\n\t\tYa existe un producto registrado con ese ID";
+        cout<<"\n\t\tID producto: ";
+        cin>>auxID; cin.ignore();
+        auxCounter++;
+    }while(idExists(auxID,myDevice,anotherADev));
+    myDevice.AppleiPad[amountDevices].id_Device=auxID;
+
     cout<<"\t\tColor: ";
     getline(cin,myDevice.AppleiPad[amountDevices].color);
     cout<<"\t\tAlmacenamiento [GB]: ";
@@ -624,9 +637,17 @@ int setiPadData(int selectedModel, int amountDevices, Device &myDevice){
     }
     return 0;
 }
-int setMacData(int selectedModel, int amountDevices, Device &myDevice){
-    cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleMac[amountDevices].id_Device; cin.ignore();
+int setMacData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev){
+    int auxID, auxCounter=0;
+    do{
+        if(auxCounter>0)
+            cout<<"\n\t\tYa existe un producto registrado con ese ID";
+        cout<<"\n\t\tID producto: ";
+        cin>>auxID; cin.ignore();
+        auxCounter++;
+    }while(idExists(auxID,myDevice,anotherADev));
+    myDevice.AppleMac[amountDevices].id_Device=auxID;
+
     cout<<"\t\tColor: ";
     getline(cin,myDevice.AppleMac[amountDevices].color);
     cout<<"\t\tAlmacenamiento [GB]: ";
@@ -739,9 +760,17 @@ int setMacData(int selectedModel, int amountDevices, Device &myDevice){
     }
     return 0;
 }
-int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice){
-    cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleAirpods[amountDevices].id_Device; cin.ignore();
+int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev){
+    int auxID, auxCounter=0;
+    do{
+        if(auxCounter>0)
+            cout<<"\n\t\tYa existe un producto registrado con ese ID";
+        cout<<"\n\t\tID producto: ";
+        cin>>auxID; cin.ignore();
+        auxCounter++;
+    }while(idExists(auxID,myDevice,anotherADev));
+    myDevice.AppleAirpods[amountDevices].id_Device=auxID;
+
     cout<<"\t\tColor: ";
     getline(cin,myDevice.AppleAirpods[amountDevices].color);
     cout<<"\t\tPrecio (USD): ";
@@ -838,9 +867,17 @@ int setAirPodsData(int selectedModel, int amountDevices, Device &myDevice){
     }
     return 0;
 }
-int setWatchData(int selectedModel, int amountDevices, Device &myDevice){
-    cout<<"\n\t\tID producto: ";
-    cin>>myDevice.AppleWatch[amountDevices].id_Device; cin.ignore();
+int setWatchData(int selectedModel, int amountDevices, Device &myDevice, int *anotherADev){
+    int auxID, auxCounter=0;
+    do{
+        if(auxCounter>0)
+            cout<<"\n\t\tYa existe un producto registrado con ese ID";
+        cout<<"\n\t\tID producto: ";
+        cin>>auxID; cin.ignore();
+        auxCounter++;
+    }while(idExists(auxID,myDevice,anotherADev));
+    myDevice.AppleWatch[amountDevices].id_Device=auxID;
+
     cout<<"\t\tColor: ";
     getline(cin,myDevice.AppleWatch[amountDevices].color);
     cout<<"\t\tPrecio (USD): ";
@@ -1724,37 +1761,37 @@ int deleteRegister(int ID, Device &myDevice, int *amountDevices){
     return 0;
 }
 
-int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices){
+int addDeviceOption(int selectedDevice, Device &myDevice, int &amountDevices, int *anotherAD){
     int selectedModel;
     switch(selectedDevice){
         case 1:
             showMenuiPhone();
             getMenuOption(selectedModel,1,10);
-            setiPhoneData(selectedModel,amountDevices,myDevice);
+            setiPhoneData(selectedModel,amountDevices,myDevice,anotherAD);
             amountDevices++;
             break;
         case 2:
             showMenuiPad();
             getMenuOption(selectedModel,1,3);
-            setiPadData(selectedModel,amountDevices,myDevice);
+            setiPadData(selectedModel,amountDevices,myDevice,anotherAD);
             amountDevices++;
             break;
         case 3:
             showMenuMac();
             getMenuOption(selectedModel,1,7);
-            setMacData(selectedModel,amountDevices,myDevice);
+            setMacData(selectedModel,amountDevices,myDevice,anotherAD);
             amountDevices++;
             break;
         case 4:
             showMenuAirPods();
             getMenuOption(selectedModel,1,4);
-            setAirPodsData(selectedModel,amountDevices,myDevice);
+            setAirPodsData(selectedModel,amountDevices,myDevice,anotherAD);
             amountDevices++;
             break;
         case 5:
             showMenuWatch();
             getMenuOption(selectedModel,1,3);
-            setWatchData(selectedModel,amountDevices,myDevice);
+            setWatchData(selectedModel,amountDevices,myDevice,anotherAD);
             amountDevices++;
             break;
         default:
@@ -1770,7 +1807,7 @@ int performMainOption(int mainOption, Device &myDevice, int *amountDevices){
             int selectedDevice;
             showDeviceMenu();
             getMenuOption(selectedDevice,1,5);
-            addDeviceOption(selectedDevice,myDevice,amountDevices[selectedDevice-1]);
+            addDeviceOption(selectedDevice,myDevice,amountDevices[selectedDevice-1],amountDevices);
             break;
         case 2:
             showAllDevices(myDevice,amountDevices);
